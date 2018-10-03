@@ -11,11 +11,15 @@ class PagesController extends Controller
         return view('pages.index')->with('title', $title);
     }
     public function admin(){
-        $title =  'Welcome to admin page!';
-        return view('pages.admin')->with('title', $title);
+        $data = array(
+            'title' => 'Logged in as admin',
+            'paragraf' => 'Registrirani korisnici:',
+            'korisnici' => ['N.N.', 'M.M.', 'B.B.']
+        );
+        return view('pages.admin')->with($data);
     }
     public function users(){
-        $title =  'Welcome to users page!';
+        $title =  'Logged in as user!';
         return view('pages.users')->with('title', $title);
     }
 }
