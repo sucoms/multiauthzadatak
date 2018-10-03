@@ -7,8 +7,11 @@ use Illuminate\Http\Request;
 class PagesController extends Controller
 {
     public function index(){
-        $title =  'Welcome to index page!';
-        return view('pages.index')->with('title', $title);
+        $data =  array(
+            'title' => 'Dobrodošli,',
+            'title2' => 'da biste nastavili, ulogirajte se!'
+        );
+        return view('pages.index')->with($data);
     }
     public function admin(){
         $data = array(
@@ -19,7 +22,11 @@ class PagesController extends Controller
         return view('pages.admin')->with($data);
     }
     public function users(){
-        $title =  'Logged in as user!';
-        return view('pages.users')->with('title', $title);
+        $data = array(
+            'title' => 'Logged in as user N.N',
+            'paragraf' => 'Podatci korisnika:',
+            'podatak' => ['Email: n.n.@test.com', 'Phone: 0123456789']
+        );
+        return view('pages.users')->with($data);
     }
 }

@@ -9,6 +9,7 @@
             <li>{{$korisnik}}</li>
         @endforeach
     </ul>
+    @endif
     </div>
-@endif
+
 @endsection

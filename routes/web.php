@@ -17,3 +17,4 @@ Route::get('/admin', 'PagesController@admin');
 
 Route::get('/users', 'PagesController@users');
 
+
