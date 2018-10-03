@@ -12,3 +12,7 @@ npm-debug.log
 yarn-error.log
 .env
 .phpunit.result.cache
+/storage/framework/views/*
+/storage/framework/sessions/*
+/storage/framework/cache/*
+*.log
