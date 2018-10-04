@@ -31,26 +31,35 @@
             <th>Ime</th>
             <th>Telefon</th>
         </tr>
+        <?php if(count($korisnik_1) > 0): ?>
         <tr>
-            <td><?php echo e($prezime1); ?></td>
-            <td><?php echo e($ime1); ?></td>
-            <td><?php echo e($tel1); ?></td>
+            <td><?php echo e($korisnik_1['prezime']); ?></td>
+            <td><?php echo e($korisnik_1['ime']); ?></td>
+            <td><?php echo e($korisnik_1['tel']); ?></td>
         </tr>
+        <?php endif; ?>
+        <?php if(count($korisnik_2) > 0): ?>
         <tr>
-            <td><?php echo e($prezime2); ?></td>
-            <td><?php echo e($ime2); ?></td>
-            <td><?php echo e($tel2); ?></td>
+            <td><?php echo e($korisnik_2['prezime']); ?></td>
+            <td><?php echo e($korisnik_2['ime']); ?></td>
+            <td><?php echo e($korisnik_2['tel']); ?></td>
         </tr>
+        <?php endif; ?>
+        <?php if(count($korisnik_3) > 0): ?>
         <tr>
-            <td><?php echo e($prezime3); ?></td>
-            <td><?php echo e($ime3); ?></td>
-            <td><?php echo e($tel3); ?></td>
+            <td><?php echo e($korisnik_3['prezime']); ?></td>
+            <td><?php echo e($korisnik_3['ime']); ?></td>
+            <td><?php echo e($korisnik_3['tel']); ?></td>
         </tr>
+        <?php endif; ?>
+        <?php if(count($korisnik_4) > 0): ?>
         <tr>
-            <td><?php echo e($prezime4); ?></td>
-            <td><?php echo e($ime4); ?></td>
-            <td><?php echo e($tel4); ?></td>
+            <td><?php echo e($korisnik_4['prezime']); ?></td>
+            <td><?php echo e($korisnik_4['ime']); ?></td>
+            <td><?php echo e($korisnik_4['tel']); ?></td>
         </tr>
+        <?php endif; ?>
+
     </table>
     </div>
 
