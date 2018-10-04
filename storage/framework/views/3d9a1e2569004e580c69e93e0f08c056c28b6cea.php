@@ -16,51 +16,28 @@
     </style>
     <div class="container">
     
-    <h1><?php echo e($title); ?></h1>
-    <p><?php echo e($paragraf); ?></p>
-    <?php if(count($korisnici) > 0): ?>
-    <ul>
-        <?php $__currentLoopData = $korisnici; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $korisnik): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <li><?php echo e($korisnik); ?></li>
-        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-    </ul>
-    <?php endif; ?>
-    <table>
-        <tr>
-            <th>Prezime</th>
-            <th>Ime</th>
-            <th>Telefon</th>
-        </tr>
-        <?php if(count($korisnik_1) > 0): ?>
-        <tr>
-            <td><?php echo e($korisnik_1['prezime']); ?></td>
-            <td><?php echo e($korisnik_1['ime']); ?></td>
-            <td><?php echo e($korisnik_1['tel']); ?></td>
-        </tr>
-        <?php endif; ?>
-        <?php if(count($korisnik_2) > 0): ?>
-        <tr>
-            <td><?php echo e($korisnik_2['prezime']); ?></td>
-            <td><?php echo e($korisnik_2['ime']); ?></td>
-            <td><?php echo e($korisnik_2['tel']); ?></td>
-        </tr>
-        <?php endif; ?>
-        <?php if(count($korisnik_3) > 0): ?>
-        <tr>
-            <td><?php echo e($korisnik_3['prezime']); ?></td>
-            <td><?php echo e($korisnik_3['ime']); ?></td>
-            <td><?php echo e($korisnik_3['tel']); ?></td>
-        </tr>
-        <?php endif; ?>
-        <?php if(count($korisnik_4) > 0): ?>
-        <tr>
-            <td><?php echo e($korisnik_4['prezime']); ?></td>
-            <td><?php echo e($korisnik_4['ime']); ?></td>
-            <td><?php echo e($korisnik_4['tel']); ?></td>
-        </tr>
-        <?php endif; ?>
+        <h1><?php echo e($title); ?></h1>
+        <h3><?php echo e($paragraf); ?></h3>
 
-    </table>
+
+
+        <table>
+            <tr>
+                <th>Prezime</th>
+                <th>Ime</th>
+                <th>Telefon</th>
+            </tr>
+            <?php if(count($korisnici) > 0): ?>
+                <?php $__currentLoopData = $korisnici; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $korisnik): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <tr>
+                        <td><?php echo e($korisnik['prezime']); ?></td>
+                        <td><?php echo e($korisnik['ime']); ?></td>
+                        <td><?php echo e($korisnik['tel']); ?></td>
+                    </tr>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <?php endif; ?>
+
+        </table>
     </div>
 
 <?php $__env->stopSection(); ?>
