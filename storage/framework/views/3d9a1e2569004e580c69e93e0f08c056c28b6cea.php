@@ -30,9 +30,11 @@
             <?php if(count($korisnici) > 0): ?>
                 <?php $__currentLoopData = $korisnici; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $korisnik): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr>
-                        <td><?php echo e($korisnik['prezime']); ?></td>
-                        <td><?php echo e($korisnik['ime']); ?></td>
-                        <td><?php echo e($korisnik['tel']); ?></td>
+                        
+                        
+                        <td><?php echo e($korisnik->prezime); ?></td>
+                        <td><?php echo e($korisnik->ime); ?></td>
+                        <td><?php echo e($korisnik->tel); ?></td>
                     </tr>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             <?php endif; ?>

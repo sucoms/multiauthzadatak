@@ -33,9 +33,13 @@
             @if (count($korisnici) > 0)
                 @foreach ($korisnici as $korisnik)
                     <tr>
-                        <td>{{$korisnik['prezime']}}</td>
+                        {{-- poziv za array atribute --}}
+                        {{-- <td>{{$korisnik['prezime']}}</td>
                         <td>{{$korisnik['ime']}}</td>
-                        <td>{{$korisnik['tel']}}</td>
+                        <td>{{$korisnik['tel']}}</td> --}}
+                        <td>{{$korisnik->prezime}}</td>
+                        <td>{{$korisnik->ime}}</td>
+                        <td>{{$korisnik->tel}}</td>
                     </tr>
                 @endforeach
             @endif

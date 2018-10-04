@@ -24,9 +24,11 @@ class PagesController extends Controller
         $data = array(
             'title' => 'Logged in as admin',
             'paragraf' => 'Registrirani korisnici:',
-            'korisnici' => array($korisnik_1, $korisnik_2, $korisnik_3, $korisnik_4)
+            'korisnici' => array((object)$korisnik_1, (object)$korisnik_2, (object)$korisnik_3, (object)$korisnik_4)
         );
-        // return $data;
+        $data = $data;
+        // dump($data);
+        // dd($data);
         return view('pages.admin')->with($data);
     }
     public function users(){
