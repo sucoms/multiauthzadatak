@@ -1,5 +1,6 @@
 <?php $__env->startSection('content'); ?>
     <div class="container">
+    
     <h1><?php echo e($title); ?></h1>
     <h3><?php echo e($paragraf); ?></h3>
     <?php if(count($podatak) > 0): ?>
