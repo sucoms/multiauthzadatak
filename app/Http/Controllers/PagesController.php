@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class PagesController extends Controller
 {
@@ -16,15 +17,19 @@ class PagesController extends Controller
         return view('pages.index')->with($data);
     }
     public function admin(){
-        // Zadatak:
-        $korisnik_1 = ['ime'=>'Pero', 'prezime'=>'Perić', 'tel'=>'0312456798'];
-        $korisnik_2 = ['ime'=>'Zvonko', 'prezime'=>'Zvonimirović', 'tel'=>'0312456798'];
-        $korisnik_3 = ['ime'=>'Zdenko', 'prezime'=>'Zdenković', 'tel'=>'0312456798'];
-        $korisnik_4 = ['ime'=>'Ivica', 'prezime'=>'Ivković', 'tel'=>'0312456798'];
+        // Zadatak: (riješeno)
+        // $korisnik_1 = ['ime'=>'Pero', 'prezime'=>'Perić', 'tel'=>'0312456798'];
+        // $korisnik_2 = ['ime'=>'Zvonko', 'prezime'=>'Zvonimirović', 'tel'=>'0312456798'];
+        // $korisnik_3 = ['ime'=>'Zdenko', 'prezime'=>'Zdenković', 'tel'=>'0312456798'];
+        // $korisnik_4 = ['ime'=>'Ivica', 'prezime'=>'Ivković', 'tel'=>'0312456798'];
+        // (staviti u komentar)-----------------------------------------------------------
+        // Novi zadatak: iz databaze se povlace podatci
+        $korisnici = User::all(); 
         $data = array(
             'title' => 'Logged in as admin',
             'paragraf' => 'Registrirani korisnici:',
-            'korisnici' => array((object)$korisnik_1, (object)$korisnik_2, (object)$korisnik_3, (object)$korisnik_4)
+            // 'korisnici' => array((object)$korisnik_1, (object)$korisnik_2, (object)$korisnik_3, (object)$korisnik_4),
+            'korisnici' => $korisnici
         );
         $data = $data;
         // dump($data);

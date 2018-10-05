@@ -17,4 +17,4 @@ Route::get('/admin', 'PagesController@admin');
 
 Route::get('/users', 'PagesController@users');
 
-
+Route::resource('Admin', 'PagesController');

@@ -32,9 +32,10 @@
                     <tr>
                         
                         
-                        <td><?php echo e($korisnik->prezime); ?></td>
-                        <td><?php echo e($korisnik->ime); ?></td>
-                        <td><?php echo e($korisnik->tel); ?></td>
+                        
+                        <td><?php echo e($korisnik->surname); ?></td>
+                        <td><?php echo e($korisnik->name); ?></td>
+                        <td><?php echo e($korisnik->phone); ?></td>
                     </tr>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             <?php endif; ?>
