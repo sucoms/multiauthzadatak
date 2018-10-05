@@ -24,7 +24,7 @@ class PagesController extends Controller
         // $korisnik_4 = ['ime'=>'Ivica', 'prezime'=>'Ivković', 'tel'=>'0312456798'];
         // (staviti u komentar)-----------------------------------------------------------
         // Novi zadatak: iz databaze se povlace podatci
-        $korisnici = User::all(); 
+        $korisnici = User::all(); //možda je bolje User::get(); jer se može mijenjati.
         $data = array(
             'title' => 'Logged in as admin',
             'paragraf' => 'Registrirani korisnici:',

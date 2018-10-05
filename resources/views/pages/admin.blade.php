@@ -21,7 +21,7 @@
         <h3>{{$paragraf}}</h3>
 
 {{-- @php
-    print_r($korisnici)
+    dd($korisnici);
 @endphp --}}
 
         <table>
@@ -33,11 +33,11 @@
             @if (count($korisnici) > 0)
                 @foreach ($korisnici as $korisnik)
                     <tr>
-                        {{-- poziv za array atribute --}}
+                        {{-- poziv za array attribute --}}
                         {{-- <td>{{$korisnik['prezime']}}</td>
                         <td>{{$korisnik['ime']}}</td>
                         <td>{{$korisnik['tel']}}</td> --}}
-                        {{-- poziv za object atribute --}}
+                        {{-- poziv za object attribute --}}
                         <td>{{$korisnik->surname}}</td>
                         <td>{{$korisnik->name}}</td>
                         <td>{{$korisnik->phone}}</td>
