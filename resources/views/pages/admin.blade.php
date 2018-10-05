@@ -37,6 +37,7 @@
                         {{-- <td>{{$korisnik['prezime']}}</td>
                         <td>{{$korisnik['ime']}}</td>
                         <td>{{$korisnik['tel']}}</td> --}}
+                        {{-- poziv za object atribute --}}
                         <td>{{$korisnik->prezime}}</td>
                         <td>{{$korisnik->ime}}</td>
                         <td>{{$korisnik->tel}}</td>
