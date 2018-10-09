@@ -1,6 +1,6 @@
 <?php $__env->startSection('content'); ?>
     <style>
-        table{
+        /* table{
             border-style: solid;
             width: 30%;
         }
@@ -12,7 +12,7 @@
         }
         td{
             border-style: ridge
-        }
+        } */
     </style>
     <div class="container">
     

@@ -6,10 +6,10 @@
     {{-- 
         Login jumbotron jednog dana
     --}}
-    <form>
+    {{-- <form>
         <input type="button" value="{{$login}}" onclick="window.location.href='/login'" />
         <input type="button" value="{{$register}}" onclick="window.location.href='/register'" />
-    </form>
+    </form> --}}
     </div>
     @endsection
         

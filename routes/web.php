@@ -18,3 +18,14 @@ Route::get('/admin', 'PagesController@admin');
 Route::get('/users', 'PagesController@users');
 
 Route::resource('Admin', 'PagesController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::prefix('admin')->group(function(){
+    Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
+    Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
+    Route::post('/admin', 'AdminController@login')->name('admin.home');
+    
+});

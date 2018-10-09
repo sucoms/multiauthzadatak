@@ -3,10 +3,7 @@
     <h1><?php echo e($title); ?></h1>
     <h2><?php echo e($title2); ?></h2>
     
-    <form>
-        <input type="button" value="<?php echo e($login); ?>" onclick="window.location.href='/login'" />
-        <input type="button" value="<?php echo e($register); ?>" onclick="window.location.href='/register'" />
-    </form>
+    
     </div>
     <?php $__env->stopSection(); ?>
         

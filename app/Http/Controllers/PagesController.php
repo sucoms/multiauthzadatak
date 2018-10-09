@@ -22,7 +22,7 @@ class PagesController extends Controller
         // $korisnik_2 = ['ime'=>'Zvonko', 'prezime'=>'Zvonimirović', 'tel'=>'0312456798'];
         // $korisnik_3 = ['ime'=>'Zdenko', 'prezime'=>'Zdenković', 'tel'=>'0312456798'];
         // $korisnik_4 = ['ime'=>'Ivica', 'prezime'=>'Ivković', 'tel'=>'0312456798'];
-        // (staviti u komentar)-----------------------------------------------------------
+        // -----------------------------------------------------------
         // Novi zadatak: iz databaze se povlace podatci
         $korisnici = User::all(); //možda je bolje User::get(); jer se može mijenjati.
         $data = array(

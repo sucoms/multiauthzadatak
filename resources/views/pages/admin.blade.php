@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <style>
-        table{
+        /* table{
             border-style: solid;
             width: 30%;
         }
@@ -13,7 +13,7 @@
         }
         td{
             border-style: ridge
-        }
+        } */
     </style>
     <div class="container">
     {{-- ispisati tablicu korisnika navedenih u kontroleru i to redoslijedom: prezime | ime | telefon --}}
