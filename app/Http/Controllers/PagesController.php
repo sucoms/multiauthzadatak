@@ -44,4 +44,12 @@ class PagesController extends Controller
         );
         return view('pages.users')->with($data);
     }
+    public function form(){
+        $data = array(
+            'title' => 'Form',
+            'form' => 'Podatci korisnika:',
+            'podatak' => ['Email: n.n.@test.com', 'Phone: 0123456789']
+        );
+        return view('pages.form')->with($data);
+    }
 }

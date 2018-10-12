@@ -17,6 +17,8 @@ Route::get('/admin', 'PagesController@admin');
 
 Route::get('/users', 'PagesController@users');
 
+Route::get('/form', 'PagesController@form');
+
 Route::resource('Admin', 'PagesController');
 
 Auth::routes();
