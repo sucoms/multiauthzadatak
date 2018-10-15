@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Http\Requests\StoreBlogPost;
+use Hash;
 
 class PagesController extends Controller
 {
@@ -52,8 +54,11 @@ class PagesController extends Controller
         );
         return view('pages.form')->with($data);
     }
-    public function save_data(Request $request){     
+    public function save_data(StoreBlogPost $request){  
+        // dd($request->User);
+        
         $user = User::create($request->all());
-        return redirect()->route('form');
+        return redirect()->route('login');
     }
+    
 }
