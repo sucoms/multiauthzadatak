@@ -53,7 +53,7 @@ class PagesController extends Controller
         return view('pages.form')->with($data);
     }
     public function save_data(Request $request){     
-    $user = User::create($request->all());
-    return redirect()->route('pages.form');
+        $user = User::create($request->all());
+        return redirect()->route('form');
     }
 }
