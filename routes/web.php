@@ -18,6 +18,9 @@ Route::get('/admin', 'PagesController@admin');
 Route::get('/users', 'PagesController@users');
 
 Route::get('/form', 'PagesController@form');
+Route::post('/form', 'PagesController@form');
+
+Route::post('/form', ['as' => 'form', 'uses' => 'PagesController@save_data']);
 
 Route::resource('Admin', 'PagesController');
 
