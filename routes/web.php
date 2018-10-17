@@ -20,7 +20,11 @@ Route::get('/users', 'PagesController@users');
 Route::get('/form', 'PagesController@form');
 Route::post('form', 'PagesController@form');
 
+
 Route::post('form', ['as' => 'form', 'uses' => 'PagesController@save_data']);
+
+Route::get('/settings', 'PagesController@settings');
+Route::post('settings', 'PagesController@settings');
 
 Route::resource('Admin', 'PagesController');
 

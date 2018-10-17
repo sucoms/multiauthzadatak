@@ -57,6 +57,19 @@
                                 
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    
+                                    
+                                    <a class="dropdown-item" href="<?php echo e(url('settings')); ?>"
+                                    onclick="event.preventDefault();                                                 
+                                    document.getElementById('settings-form').submit();">
+                                    <?php echo e(__('Settings')); ?>
+
+                                    </a>
+                                    <form id="settings-form" action="<?php echo e(url('settings')); ?>" method="POST" 
+                                    style="display: none;">
+                                    <?php echo e(csrf_field()); ?>
+
+                                    </form>
                                     <a class="dropdown-item" href="<?php echo e(route('logout')); ?>"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

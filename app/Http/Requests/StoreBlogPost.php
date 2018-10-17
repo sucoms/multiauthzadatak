@@ -26,9 +26,10 @@ class StoreBlogPost extends FormRequest
         return [
             'name' => 'required',
             'surname' => 'required',
-            'email' => 'email|required',
-            'phone' => 'nullable',
-            'password' => 'required|between:6,12'
+            'email' => 'email|required|unique:users',
+            'phone' => 'nullable|numeric',
+            'password' => 'required_with:password_confirmation|same:password_confirmation|between:6,12',
+            'password_confirmation' => 'between:6,12'
         ];
     }
 
@@ -36,10 +37,15 @@ class StoreBlogPost extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'We need your name.',
-            'surname.required' => 'We need your last name.',
-            'password.required' => 'We need your password.',
-            'email.email' => 'We need a valid email address.'
+            'name.required' => 'Molimo unesite svoje ime.',
+            'surname.required' => 'Molimo unesite svoje prezime.',
+            'password.required' => 'Molimo unesite svoju lozinku.',
+            'password_confirmation' => 'Molimo unesite istu lozinku.',
+            'email.email' => 'Molimo unesite svoju email adresu.',
+            'phone.numeric' => 'Telefon može sadržavati samo brojeve.',
+            'email.unique' => 'Ova email adresa se već koristi. Molimo unesite drugu email adresu.',
+            'password.between' => 'Lozinka mora biti između 6 i 12 znakova.',
+            'password_confirmation.between' => 'Lozinka mora biti između 6 i 12 znakova.'
         ];
     }
 }

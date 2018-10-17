@@ -48,7 +48,16 @@
                 </span>
             @endif
         </div>
-        
+        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+            {{ Form::label('password_confirmation', 'Confirm Your Password:') }}
+            {{ Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => 'Confirm Your Password']) }}
+            @if ($errors->has('password_confirmation'))
+                <span class="class-block">
+                    {{$errors->first('password_confirmation')}}
+                </span>
+            @endif
+        </div>
+        <hr>
         <div class="form-group">
             {{ Form::submit('Submit', ['class' => 'btn btn-secondary']) }}
         </div>

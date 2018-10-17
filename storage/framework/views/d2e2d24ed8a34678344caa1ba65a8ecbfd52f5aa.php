@@ -1,14 +1,16 @@
 <?php $__env->startSection('content'); ?>
     <div class="container">
     
-    <h1><?php echo e($title); ?></h1>
+
+    
+    <h1>Logged in as <?php echo e(Auth::user()->name); ?> <?php echo e(Auth::user()->surname); ?></h1>
     <h3><?php echo e($paragraf); ?></h3>
     <?php if(count($podatak) > 0): ?>
     <ul>
-        <?php $__currentLoopData = $podatak; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $podatci): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <li><?php echo e($podatci); ?></li>
-        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <li>Phone: <?php echo e(Auth::user()->phone); ?></li>
+            <li>Email: <?php echo e(Auth::user()->email); ?></li>
     </ul>
+    <hr>
     <?php endif; ?>
     </div>
     <?php $__env->stopSection(); ?>

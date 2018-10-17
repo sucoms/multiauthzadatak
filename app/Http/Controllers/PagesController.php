@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Http\Requests\StoreBlogPost;
+use App\Http\Requests\UpdateUserData;
 use Hash;
+use Auth;
+use Flash;
 
 class PagesController extends Controller
 {
@@ -39,18 +42,18 @@ class PagesController extends Controller
         return view('pages.admin')->with($data);
     }
     public function users(){
+        $korisnici = User::all();
         $data = array(
             'title' => 'Logged in as user N.N',
             'paragraf' => 'Podatci korisnika:',
-            'podatak' => ['Email: n.n.@test.com', 'Phone: 0123456789']
+            'podatak' => ['Email: n.n.@test.com', 'Phone: 0123456789'],
+            'korisnici' => $korisnici
         );
         return view('pages.users')->with($data);
     }
     public function form(){
         $data = array(
             'title' => 'Form',
-            'form' => 'Podatci korisnika:',
-            'podatak' => ['Email: n.n.@test.com', 'Phone: 0123456789']
         );
         return view('pages.form')->with($data);
     }
@@ -59,6 +62,20 @@ class PagesController extends Controller
         
         $user = User::create($request->all());
         return redirect()->route('login');
+    }
+    public function settings(){
+        $user = Auth::user();
+        $data = array(
+            'title' => 'Settings',
+            'user' => $user
+        );
+        return view('pages.settings')->with($data);
+    }
+    public function update(UpdateUserData $request){
+        $user = Auth::user();
+        $user->update($request->all());
+        
+        return view('pages.settings');
     }
     
 }

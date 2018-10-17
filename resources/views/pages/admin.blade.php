@@ -23,7 +23,7 @@
 {{-- @php
     dd($korisnici);
 @endphp --}}
-
+{{-- Ucitava podatke svih korisnika --}}
         <table>
             <tr>
                 <th>Prezime</th>
@@ -46,6 +46,7 @@
             @endif
 
         </table>
+        <hr>
     </div>
 
 @endsection
