@@ -41,6 +41,7 @@
             <?php endif; ?>
 
         </table>
+        <hr>
     </div>
 
 <?php $__env->stopSection(); ?>

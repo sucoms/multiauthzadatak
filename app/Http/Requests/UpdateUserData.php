@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+
 class UpdateUserData extends FormRequest
 {
     /**
@@ -26,7 +27,7 @@ class UpdateUserData extends FormRequest
         return [
             'name' => 'nullable',
             'surname' => 'nullable',
-            'email' => 'email|nullable|unique:users',
+            'email' => 'email|nullable',
             'phone' => 'nullable|numeric',
         ];
     }

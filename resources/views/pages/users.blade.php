@@ -8,12 +8,12 @@
     {{-- Ucitava podatke korisnika --}}
     <h1>Logged in as {{Auth::user()->name}} {{Auth::user()->surname}}</h1>
     <h3>{{$paragraf}}</h3>
-    @if (count($podatak) > 0)
+
     <ul>
             <li>Phone: {{Auth::user()->phone}}</li>
             <li>Email: {{Auth::user()->email}}</li>
     </ul>
     <hr>
-    @endif
+
     </div>
     @endsection

@@ -42,13 +42,18 @@
         <hr>
         {{Form::hidden('_method', 'PUT')}}
         <div class="form-group">
-            {{ Form::submit('Submit', ['class' => 'btn btn-primary']) }}
+            {{ Form::submit('Potvrdite', ['class' => 'btn btn-primary']) }}
         </div>
-        {{-- <div class="form-group">
-            {{ Form::submit('Delete Account', ['class' => 'btn btn-danger']) }}
-        </div> --}}
+        
         {{ csrf_field() }}
     {!! Form::close() !!}
+    
+    {!! Form::open(['action' => ['PagesController@destroy', Auth::user()], 'method' => 'POST']) !!}
+        <div class="form-group">
+            {{ Form::submit('Obrišite račun', ['class' => 'btn btn-danger']) }}
+        </div>
+        {{Form::hidden('_method', 'DELETE')}}
+    {!!Form::close()!!}
     </div>
     @endsection
         

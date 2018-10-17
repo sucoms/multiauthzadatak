@@ -9,9 +9,14 @@ use App\Http\Requests\UpdateUserData;
 use Hash;
 use Auth;
 use Flash;
+use Redirect;
 
 class PagesController extends Controller
 {
+    // public function __construct(){
+    //     $this->middleware('auth');
+    // }
+    
     public function index(){
         $data =  array(
             'title' => 'Dobrodošli,',
@@ -42,9 +47,10 @@ class PagesController extends Controller
         return view('pages.admin')->with($data);
     }
     public function users(){
+        
         $korisnici = User::all();
         $data = array(
-            'title' => 'Logged in as user N.N',
+            // 'title' => 'Logged in as user N.N',
             'paragraf' => 'Podatci korisnika:',
             'podatak' => ['Email: n.n.@test.com', 'Phone: 0123456789'],
             'korisnici' => $korisnici
@@ -74,8 +80,25 @@ class PagesController extends Controller
     public function update(UpdateUserData $request){
         $user = Auth::user();
         $user->update($request->all());
-        
-        return view('pages.settings');
+        $data = array(
+            'user' => $user
+        );
+        return redirect()->back();
     }
+    public function destroy(){
+        $user = Auth::user();
+        Auth::logout();
+        
+        if ($user->delete()) {
+
+            $data = array(
+                'title' => 'Dobrodošli,',
+                'title2' => 'da biste nastavili, ulogirajte se!',
+
+            );
+            return view('pages.index')->with($data);
+        
+        }
     
+    }
 }

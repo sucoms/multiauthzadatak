@@ -44,6 +44,8 @@ class StoreBlogPost extends FormRequest
             'email.email' => 'Molimo unesite svoju email adresu.',
             'phone.numeric' => 'Telefon može sadržavati samo brojeve.',
             'email.unique' => 'Ova email adresa se već koristi. Molimo unesite drugu email adresu.',
+            'password.same' => 'Lozinke se moraju podudarati.',
+            'password_confirmation' => 'Lozinke se moraju podudarati.',
             'password.between' => 'Lozinka mora biti između 6 i 12 znakova.',
             'password_confirmation.between' => 'Lozinka mora biti između 6 i 12 znakova.'
         ];
