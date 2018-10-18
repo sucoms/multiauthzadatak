@@ -27,7 +27,7 @@ class UpdateUserData extends FormRequest
         return [
             'name' => 'nullable',
             'surname' => 'nullable',
-            'email' => 'email|nullable|unique:users,email',
+            'email' => 'email|nullable|unique:users,name,email',
             'phone' => 'nullable|numeric',
         ];
     }
