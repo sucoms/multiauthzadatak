@@ -18,8 +18,8 @@ class PagesController extends Controller
     public function index(){
         $korisnici = User::all();
         $user = Auth::User();
-        {
-        if ($user->is_admin()){
+        if($user){
+        if ($user->IsAdmin()){
             $data = array(
             'title' => 'Logged in as admin',
             'paragraf' => 'Registrirani korisnici:',
