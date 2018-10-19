@@ -16,12 +16,34 @@ class PagesController extends Controller
 {
     
     public function index(){
+        $korisnici = User::all();
+        $user = Auth::User();
+        {
+        if ($user->is_admin()){
+            $data = array(
+            'title' => 'Logged in as admin',
+            'paragraf' => 'Registrirani korisnici:',
+            // 'korisnici' => array((object)$korisnik_1, (object)$korisnik_2, (object)$korisnik_3, (object)$korisnik_4),
+            'korisnici' => $korisnici);
+            return view('pages.admin')->with($data);
+            }
+            $data = array(
+                // 'title' => 'Logged in as user N.N',
+                'paragraf' => 'Podatci korisnika:',
+                'podatak' => ['Email: n.n.@test.com', 'Phone: 0123456789'],
+                'korisnici' => $korisnici
+            );
+            return view('pages.users')->with($data);
+        }
         $data =  array(
             'title' => 'Dobrodošli,',
             'title2' => 'da biste nastavili, ulogirajte se!',
             'login' => 'Login',
             'register' => 'Register'
+            
         );
+        
+        
         return view('pages.index')->with($data);
     }
     public function admin(){
