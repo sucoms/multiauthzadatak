@@ -63,6 +63,9 @@
                                     <a class="dropdown-item" href="{{ url('/admin') }}">
                                         {{ __('Admin dashboard') }}
                                     </a>
+                                    <a class="dropdown-item" href="{{ url('/form') }}">
+                                        {{ __('Forma') }}
+                                    </a>
                                     
                                     <a class="dropdown-item" href="{{ url('settings') }}"
                                     onclick="event.preventDefault();                                                 

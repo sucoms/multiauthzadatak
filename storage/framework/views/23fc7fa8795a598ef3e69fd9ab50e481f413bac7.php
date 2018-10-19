@@ -66,6 +66,10 @@
                                         <?php echo e(__('Admin dashboard')); ?>
 
                                     </a>
+                                    <a class="dropdown-item" href="<?php echo e(url('/form')); ?>">
+                                        <?php echo e(__('Forma')); ?>
+
+                                    </a>
                                     
                                     <a class="dropdown-item" href="<?php echo e(url('settings')); ?>"
                                     onclick="event.preventDefault();                                                 

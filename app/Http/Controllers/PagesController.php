@@ -11,11 +11,9 @@ use Auth;
 use Flash;
 use Redirect;
 
+
 class PagesController extends Controller
 {
-    // public function __construct(){
-    //     $this->middleware('auth');
-    // }
     
     public function index(){
         $data =  array(
@@ -99,6 +97,6 @@ class PagesController extends Controller
             return view('pages.index')->with($data);
         
         }
-    
     }
+    
 }
