@@ -58,6 +58,14 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     
+                                    <a class="dropdown-item" href="<?php echo e(url('/users')); ?>">
+                                        <?php echo e(__('Users dashboard')); ?>
+
+                                    </a>
+                                    <a class="dropdown-item" href="<?php echo e(url('/admin')); ?>">
+                                        <?php echo e(__('Admin dashboard')); ?>
+
+                                    </a>
                                     
                                     <a class="dropdown-item" href="<?php echo e(url('settings')); ?>"
                                     onclick="event.preventDefault();                                                 

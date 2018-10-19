@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\User;
+use Illuminate\Support\Facades\Hash;
 
 class UsersTableSeeder extends Seeder
 {
@@ -18,7 +19,7 @@ class UsersTableSeeder extends Seeder
 			'surname' => 'Perić',
             'email' => 'pero@test.com',
             'phone' => '03123456798',
-			'password' => bcrypt('123456789')
+			'password' => '123456789'
         ]);
         
         User::create([
@@ -26,7 +27,7 @@ class UsersTableSeeder extends Seeder
 			'surname' => 'Zvonimirović',
             'email' => 'zvonko@test.com',
             'phone' => '03123456798',
-			'password' => bcrypt('123456789'),
+			'password' => '123456789',
         ]);
         
         User::create([
@@ -34,7 +35,7 @@ class UsersTableSeeder extends Seeder
 			'surname' => 'Zdenković',
             'email' => 'zdenko@test.com',
             'phone' => '03123456798',
-			'password' => bcrypt('123456789'),
+			'password' => '123456789',
         ]);
         
         User::create([
@@ -42,7 +43,7 @@ class UsersTableSeeder extends Seeder
 			'surname' => 'Ivković',
             'email' => 'ivica@test.com',
             'phone' => '03123456798',
-			'password' => bcrypt('123456789'),
+			'password' => '123456789',
         ]);    
     }
 }

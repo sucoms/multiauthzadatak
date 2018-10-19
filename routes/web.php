@@ -25,11 +25,11 @@ Route::group(['middleware' => ['auth']], function() {
 
 // Route::get('/users', 'PagesController@users');
 
+
+Route::get('/users', 'PagesController@users');
 Route::get('/form', 'PagesController@form');
-Route::post('form', 'PagesController@form');
 
-
-Route::post('form', ['as' => 'form', 'uses' => 'PagesController@save_data']);
+Route::post('/form', ['as' => 'form', 'uses' => 'PagesController@save_data']);
 
 // Route::get('/settings', 'PagesController@settings');
 // Route::post('settings', 'PagesController@settings');

@@ -57,6 +57,12 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     
+                                    <a class="dropdown-item" href="{{ url('/users') }}">
+                                        {{ __('Users dashboard') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ url('/admin') }}">
+                                        {{ __('Admin dashboard') }}
+                                    </a>
                                     
                                     <a class="dropdown-item" href="{{ url('settings') }}"
                                     onclick="event.preventDefault();                                                 
