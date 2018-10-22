@@ -15,6 +15,7 @@
         } */
     </style>
     <div class="container">
+        
     
         <h1><?php echo e($title); ?></h1>
         <h3><?php echo e($paragraf); ?></h3>
@@ -42,6 +43,7 @@
 
         </table>
         <hr>
+        <?php echo $__env->make('pages.adminForma', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
     </div>
 
 <?php $__env->stopSection(); ?>

@@ -16,6 +16,7 @@
         } */
     </style>
     <div class="container">
+        
     {{-- ispisati tablicu korisnika navedenih u kontroleru i to redoslijedom: prezime | ime | telefon --}}
         <h1>{{$title}}</h1>
         <h3>{{$paragraf}}</h3>
@@ -47,6 +48,7 @@
 
         </table>
         <hr>
+        @include('pages.adminForma')
     </div>
 
 @endsection

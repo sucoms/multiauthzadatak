@@ -83,6 +83,18 @@ class PagesController extends Controller
         );
         return view('pages.form')->with($data);
     }
+    public function adminForma(StoreBlogPost $request){
+        $korisnici = User::all();
+        $data = array(
+            'title' => 'Logged in as admin',
+            'paragraf' => 'Registrirani korisnici:',
+            // 'korisnici' => array((object)$korisnik_1, (object)$korisnik_2, (object)$korisnik_3, (object)$korisnik_4),
+            'korisnici' => $korisnici,
+            'title' => 'Form',
+        );
+        $user = User::create($request->all());
+        return back()->with($data);
+    }
     public function save_data(StoreBlogPost $request){  
         // dd($request->User);
         
