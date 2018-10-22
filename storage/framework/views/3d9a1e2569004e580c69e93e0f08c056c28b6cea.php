@@ -43,7 +43,12 @@
 
         </table>
         <hr>
+        <h1>Dodaj novog korisnika</h1>
+        <?php echo Form::open(['action' => 'PagesController@adminForma', 'method' => 'POST' ]); ?>
+
         <?php echo $__env->make('pages.adminForma', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+        <?php echo Form::close(); ?>
+
     </div>
 
 <?php $__env->stopSection(); ?>

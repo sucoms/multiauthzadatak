@@ -1,8 +1,5 @@
-@extends('layouts.app')
-@section('content')
-    <div class="container">
-    <h1>{{$title}}</h1>
-    {!! Form::open(['action' => 'PagesController@adminForma', 'method' => 'POST' ]) !!}
+
+<div class="container">
         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
             {{ Form::label('name', 'Name:') }}
             {{ Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Name']) }}
@@ -62,7 +59,5 @@
             {{ Form::submit('Submit', ['class' => 'btn btn-secondary']) }}
         </div>
         {{ csrf_field() }}
-    {!! Form::close() !!}
-    </div>
-@endsection
-        
+</div>
+

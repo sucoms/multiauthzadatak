@@ -48,7 +48,10 @@
 
         </table>
         <hr>
+        <h1>Dodaj novog korisnika</h1>
+        {!! Form::open(['action' => 'PagesController@adminForma', 'method' => 'POST' ]) !!}
         @include('pages.adminForma')
+        {!! Form::close() !!}
     </div>
 
 @endsection
