@@ -10,14 +10,18 @@
     <title><?php echo e(config('app.name', 'Ofirmultiauth')); ?></title>
 
     <!-- Scripts -->
-    <script src="<?php echo e(asset('js/app.js')); ?>" defer></script>
-
+    <script src="<?php echo e(asset('js/app.js')); ?>"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"</script>
+    
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
     <link rel="stylesheet" href="<?php echo e(asset('css/app.css')); ?>">
+    
+    
 </head>
 <body>
     <div id="app">
@@ -57,11 +61,13 @@
                                 
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    
+                                   
                                     <a class="dropdown-item" href="<?php echo e(url('/users')); ?>">
                                         <?php echo e(__('Users dashboard')); ?>
 
                                     </a>
+                                    
+                                    
                                     <a class="dropdown-item" href="<?php echo e(url('/admin')); ?>">
                                         <?php echo e(__('Admin dashboard')); ?>
 
@@ -70,6 +76,7 @@
                                         <?php echo e(__('Forma')); ?>
 
                                     </a>
+                                    
                                     
                                     <a class="dropdown-item" href="<?php echo e(url('settings')); ?>"
                                     onclick="event.preventDefault();                                                 
