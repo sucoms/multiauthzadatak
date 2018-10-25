@@ -134,45 +134,46 @@ class PagesController extends Controller
     }
     public function action(Request $request)
     {
-        if($request->ajax()){
-            $output = '';
-            $query = $request->get('query');
-            if($query != ''){
-                $data = DB::table('users')
-                    ->where('surname', 'like', '%'.$query.'%')
-                    ->orWhere('name', 'like', '%'.$query.'%')
-                    ->orWhere('phone', 'like', '%'.$query.'%')
-                    ->orderBy('id')
-                    ->get();
-            }else {
-                $data = DB::table('users')
-                    ->orderBy('id')
-                    ->get();
-            }
-            $total_row = $data->count();
-            if($total_row > 0){
-                foreach($data as $row){
-                    $output .= '
-                        <tr>
-                            <td>'.$row->surname.'</td>
-                            <td>'.$row->name.'</td>
-                            <td>'.$row->phone.'</td>
-                        </tr>
-                    ';
-                }
-            }else{
-                $output = '
-                    <tr>
-                        <td align="center" colspan="5">No Data Found</td>
-                    </tr>
-                ';
-            }
-            $data = array(
-                'table_data'  => $output,
-                'total_data'  => $total_row,
-            );
+            
+                if($request->ajax()){
+                    $output = '';
+                    $query = $request->get('query');
+                    if($query != ''){
+                        $data = DB::table('users')
+                            ->where('surname', 'like', '%'.$query.'%')
+                            ->orWhere('name', 'like', '%'.$query.'%')
+                            ->orWhere('phone', 'like', '%'.$query.'%')
+                            ->orderBy('id')
+                            ->get();
+                    }else {
+                        $data = DB::table('users')
+                            ->orderBy('id')
+                            ->get();
+                    }
+                    $total_row = $data->count();
+                    if($total_row > 0){
+                        foreach($data as $row){
+                            $output .= '
+                                <tr>
+                                    <td>'.$row->surname.'</td>
+                                    <td>'.$row->name.'</td>
+                                    <td>'.$row->phone.'</td>
+                                </tr>
+                            ';
+                        }
+                    }else{
+                        $output = '
+                            <tr>
+                                <td align="center" colspan="5">No Data Found</td>
+                            </tr>
+                        ';
+                    }
+                    $data = array(
+                        'table_data'  => $output,
+                        'total_data'  => $total_row,
+                    );
 
-            echo json_encode($data);
-        }
+                    echo json_encode($data);
+                }
     }
 }

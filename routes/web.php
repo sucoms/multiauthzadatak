@@ -27,7 +27,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/settings', 'PagesController@settings');
     Route::post('settings', 'PagesController@settings');
     
-    Route::get('/live_search/action', 'PagesController@action')->name('live_search.action');
+    // Route::get('/live_search/action', 'PagesController@action')->name('live_search.action');
 
 });
 // Route::get('/admin', 'PagesController@admin');
