@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
-    {{-- <style>
-        table{
+     <style>
+        /* table{
             border-style: solid!important;
             width: 40%!important;
         }
@@ -13,8 +13,45 @@
         }
         td{
             border-style: ridge!important;
+        } */
+        
+        .modal-content{
+            width: 500px;
+            height: 200px;
+            background-color: #F5F5F5;
+            border-radius: 4px; 
+            text-align: center;
+            padding: 20px;
+            position: relative;
         }
-    </style> --}}
+        .remove-button{
+            height:25px;
+            width:25px;
+            position: relative;
+            left: 40%;
+            right: -60%;
+        }
+        
+        
+        .close{
+            position: absolute;
+            top: 0;
+            right: -50%;
+            left: -50%;
+            color: #ffffff;
+            opacity: 10;
+            font-size: 20px;
+        }
+        
+        .modal-backdrop.fade{
+            opacity: 0.5!important;
+        }
+        .fade:not(.show){
+            opacity: 1;
+        }
+        
+        
+    </style>
     <div class="container">
         
     {{-- ispisati tablicu korisnika navedenih u kontroleru i to redoslijedom: prezime | ime | telefon --}}
@@ -72,16 +109,20 @@
         <h1>{{$title}}, {{Auth::user()->name}} {{Auth::user()->surname}}.</h1>
         <h3>{{$paragraf}}</h3>
         <hr>
-        {!! Form::open(['action' => 'PagesController@action', 'method' => 'POST' ]) !!}
+        
+        {{-- {!! Form::open(['action' => 'PagesController@action', 'method' => 'POST' ]) !!} --}}
         @include('pages.live_search')
-        {!! Form::close() !!}
+        {{-- {!! Form::close() !!} --}}
 
         
         <hr>
         <h1>Dodaj novog korisnika</h1>
-        {!! Form::open(['action' => 'PagesController@adminForma', 'method' => 'POST' ]) !!}
+        
         @include('pages.adminForma')
-        {!! Form::close() !!}
+        
     </div>
+    <script>
+        
+    </script>
 
 @endsection

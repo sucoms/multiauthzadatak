@@ -25,7 +25,8 @@ class PagesController extends Controller
             'title' => 'Logged in as admin',
             'paragraf' => 'Registrirani korisnici:',
             // 'korisnici' => array((object)$korisnik_1, (object)$korisnik_2, (object)$korisnik_3, (object)$korisnik_4),
-            'korisnici' => $korisnici);
+            'korisnici' => $korisnici,
+            'modal' => 'Želite li uistinu obrisati korisnika?');
             return view('pages.admin')->with($data);
             }
             $data = array(
@@ -57,10 +58,11 @@ class PagesController extends Controller
         // Novi zadatak: iz databaze se povlace podatci
         $korisnici = User::all(); //možda je bolje User::get(); jer se može mijenjati.
         $data = array(
-            'title' => 'Logged in as admin',
+            'title' => 'Ulogirani ste kao admin.',
             'paragraf' => 'Registrirani korisnici:',
             // 'korisnici' => array((object)$korisnik_1, (object)$korisnik_2, (object)$korisnik_3, (object)$korisnik_4),
-            'korisnici' => $korisnici
+            'korisnici' => $korisnici,
+            'modal' => 'Želite li uistinu obrisati korisnika?'
         );
         // dump($data);
         // dd($data);
@@ -91,6 +93,7 @@ class PagesController extends Controller
             // 'korisnici' => array((object)$korisnik_1, (object)$korisnik_2, (object)$korisnik_3, (object)$korisnik_4),
             'korisnici' => $korisnici,
             'title' => 'Form',
+            'modal' => 'Želite li uistinu obrisati korisnika?'
         );
         $user = User::create($request->all());
         return back()->with($data);
@@ -117,12 +120,20 @@ class PagesController extends Controller
         );
         return redirect()->back();
     }
-    public function destroy(){
+    public function destroy($id){
+        return $id;
         $user = Auth::user();
-        Auth::logout();
+        $korisnik = User::findOrFail($id);
+        
+        if ($user->IsAdmin()){
+            if($user->delete($id)){
+                return redirect()->back();
+                
+            }
+        }
         
         if ($user->delete()) {
-
+            Auth::logout();
             $data = array(
                 'title' => 'Dobrodošli,',
                 'title2' => 'da biste nastavili, ulogirajte se!',
@@ -132,48 +143,52 @@ class PagesController extends Controller
         
         }
     }
+
     public function action(Request $request)
     {
             
-                if($request->ajax()){
-                    $output = '';
-                    $query = $request->get('query');
-                    if($query != ''){
-                        $data = DB::table('users')
-                            ->where('surname', 'like', '%'.$query.'%')
-                            ->orWhere('name', 'like', '%'.$query.'%')
-                            ->orWhere('phone', 'like', '%'.$query.'%')
-                            ->orderBy('id')
-                            ->get();
-                    }else {
-                        $data = DB::table('users')
-                            ->orderBy('id')
-                            ->get();
-                    }
-                    $total_row = $data->count();
-                    if($total_row > 0){
-                        foreach($data as $row){
-                            $output .= '
-                                <tr>
-                                    <td>'.$row->surname.'</td>
-                                    <td>'.$row->name.'</td>
-                                    <td>'.$row->phone.'</td>
-                                </tr>
-                            ';
-                        }
-                    }else{
-                        $output = '
-                            <tr>
-                                <td align="center" colspan="5">No Data Found</td>
-                            </tr>
-                        ';
-                    }
-                    $data = array(
-                        'table_data'  => $output,
-                        'total_data'  => $total_row,
-                    );
-
-                    echo json_encode($data);
+        if($request->ajax()){
+            $output = '';
+            $query = $request->get('query');
+            if($query != ''){
+                $data = DB::table('users')
+                    ->where('surname', 'like', '%'.$query.'%')
+                    ->orWhere('name', 'like', '%'.$query.'%')
+                    ->orWhere('phone', 'like', '%'.$query.'%')
+                    ->orderBy('id')
+                    ->get();
+            }else {
+                $data = DB::table('users')
+                    ->orderBy('id')
+                    ->get();
+            }
+            $total_row = $data->count();
+            if($total_row > 0){
+                foreach($data as $row){
+                    $output .= '
+                        <tr>
+                            <td>'.$row->surname.'</td>
+                            <td>'.$row->name.'</td>
+                            <td>'.$row->phone.'</td>
+                            <td><button type="button" class="remove-button btn btn-danger" data-id="'.$row->id.'">
+                            <div class="close">&#120;</div>
+                            </button></td>
+                        </tr>
+                    ';
                 }
+            }else{
+                $output = '
+                    <tr>
+                        <td align="center" colspan="5">No Data Found</td>
+                    </tr>
+                ';
+            }
+            $data = array(
+                'table_data'  => $output,
+                'total_data'  => $total_row,
+            );
+
+            echo json_encode($data);
+        }
     }
 }

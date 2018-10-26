@@ -1,4 +1,4 @@
-
+{!! Form::open(['action' => 'PagesController@adminForma', 'method' => 'POST' ]) !!}
 <div class="container">
         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
             {{ Form::label('name', 'Name:') }}
@@ -61,3 +61,4 @@
         {{ csrf_field() }}
 </div>
 
+{{ Form::close() }}
