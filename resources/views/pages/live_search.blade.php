@@ -77,6 +77,21 @@
             $("#exampleModal").modal("show");
             console.log(id);
         });
+        $(document).on('click', '.remove-button', function(){
+        var id = $(this).attr('id');
+        {
+            $.ajax({
+                url:"{{route('live_search.destroy')}}",
+                method:"get",
+                data:{id:id},
+                success:function(data)
+                {
+                    alert(data);
+                    $('#users').DataTable().ajax.reload();
+                }
+            })
+        }
+    }); 
     });
     
     

@@ -125,12 +125,11 @@ class PagesController extends Controller
         $user = Auth::user();
         $korisnik = User::findOrFail($id);
         
-        if ($user->IsAdmin()){
-            if($user->delete($id)){
-                return redirect()->back();
-                
+        if ($korisnik->IsAdmin()){
+            if($korisnik->delete($id)){
+                return redirect()->back(); 
             }
-        }
+        }else{
         
         if ($user->delete()) {
             Auth::logout();
@@ -140,7 +139,7 @@ class PagesController extends Controller
 
             );
             return view('pages.index')->with($data);
-        
+        }
         }
     }
 

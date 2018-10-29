@@ -22,6 +22,7 @@ Route::group(['middleware' => ['auth', /*'IsAdmin'*/]], function() {
     Route::get('/live_search/action', 'PagesController@action')->name('live_search.action');
     Route::post('settings', 'PagesController@settings');
     Route::post('/live_search/action', 'PagesController@action');
+    Route::get('/live_search/destroy', 'PagesController@destroy')->name('live_search.destroy');
 });
 // Route::group(['middleware' => ['auth']], function() {
 //     Route::get('/users', 'PagesController@users');
