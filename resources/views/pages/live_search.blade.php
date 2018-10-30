@@ -1,6 +1,6 @@
 <!-- Modal -->
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -51,9 +51,9 @@
     
     $(document).ready(function(){
 
-        fetch_customer_data();
+        fetch_user_data();
         
-        function fetch_customer_data(query = ''){
+        function fetch_user_data(query = ''){
             $.ajax({
                 url:"{{ route('live_search.action') }}",
                 method:'GET',
@@ -69,20 +69,20 @@
         // 
         $(document).on('keyup', '#search', function(){
             var query = $(this).val();
-            fetch_customer_data(query);
+            fetch_user_data(query);
         });
 
         $('#users').on('click', '.remove-button', function(){
             var id=$(this).data('id');
-            $("#exampleModal").modal("show");
+            $("#deleteModal").modal("show");
             console.log(id);
         });
-        $(document).on('click', '.remove-button', function(){
-        var id = $(this).attr('id');
+        $(document).on('click', '.rem-mod', function(){
+        var id = $(this).data('id');
         {
             $.ajax({
                 url:"{{route('live_search.destroy')}}",
-                method:"get",
+                method:"delete",
                 data:{id:id},
                 success:function(data)
                 {

@@ -120,13 +120,12 @@ class PagesController extends Controller
         );
         return redirect()->back();
     }
-    public function destroy($id){
+    public function destroy(Request $reqeust, $id){
         return $id;
         $user = Auth::user();
-        $korisnik = User::findOrFail($id);
         
-        if ($korisnik->IsAdmin()){
-            if($korisnik->delete($id)){
+        if ($user->IsAdmin($request)){
+            if($users->delete(user())){
                 return redirect()->back(); 
             }
         }else{
@@ -178,7 +177,7 @@ class PagesController extends Controller
             }else{
                 $output = '
                     <tr>
-                        <td align="center" colspan="5">No Data Found</td>
+                        <td align="center" colspan="5">Nema podataka</td>
                     </tr>
                 ';
             }
