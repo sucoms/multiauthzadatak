@@ -11,7 +11,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="rem-mod btn btn-secondary" data-dismiss="modal">Zatvori</button>
-                    {{ Form::open(['action'=> ['PagesController@destroy', Auth::user()->id],'method' => 'POST']) }}
+                    {{ Form::open(['method' => 'POST']) }}
                     {{ Form::submit('Obrišite račun', ['class' => 'bck-mod btn btn-danger']) }}    
                     {{ Form::hidden('_method', 'DELETE') }}
                     {{ Form::close() }}
@@ -66,23 +66,22 @@
                 }
             })
         }
-        // 
+ 
         $(document).on('keyup', '#search', function(){
             var query = $(this).val();
             fetch_user_data(query);
         });
 
         $('#users').on('click', '.remove-button', function(){
-            var id=$(this).data('id');
+            var url = $(this).data('url');
+            $("#deleteModal form").attr('action', url);
             $("#deleteModal").modal("show");
-            console.log(id);
         });
-        $(document).on('click', '.rem-mod', function(){
+        $(document).on('click', '.bck-mod', function(){
         var id = $(this).data('id');
-        {
             $.ajax({
                 url:"{{route('live_search.destroy')}}",
-                method:"delete",
+                method:"POST",
                 data:{id:id},
                 success:function(data)
                 {
@@ -90,8 +89,7 @@
                     $('#users').DataTable().ajax.reload();
                 }
             })
-        }
-    }); 
+    });
     });
     
     

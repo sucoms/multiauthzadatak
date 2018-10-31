@@ -120,25 +120,29 @@ class PagesController extends Controller
         );
         return redirect()->back();
     }
-    public function destroy(Request $reqeust, $id){
-        return $id;
-        $user = Auth::user();
-        
-        if ($user->IsAdmin($request)){
-            if($users->delete(user())){
-                return redirect()->back(); 
+    public function destroy(Request $request, $id){
+        // return $id;
+        // $korisnici = User::all();
+        // $user = Auth::user();
+        $user = User::findOrFail($id);
+        // return $user;
+        if ($user->IsAdmin()){
+            if($user->delete()){
+                $data = array(
+                    'title' => 'Logged in as admin',
+                    'paragraf' => 'Registrirani korisnici:',
+                    'korisnici' => $korisnici,
+                    'modal' => 'Želite li uistinu obrisati korisnika?');
+                return view('pages.admin')->with($data); 
             }
         }else{
-        
-        if ($user->delete()) {
-            Auth::logout();
+            $user->delete(); 
             $data = array(
                 'title' => 'Dobrodošli,',
                 'title2' => 'da biste nastavili, ulogirajte se!',
 
             );
             return view('pages.index')->with($data);
-        }
         }
     }
 
@@ -168,7 +172,7 @@ class PagesController extends Controller
                             <td>'.$row->surname.'</td>
                             <td>'.$row->name.'</td>
                             <td>'.$row->phone.'</td>
-                            <td><button type="button" class="remove-button btn btn-danger" data-id="'.$row->id.'">
+                            <td><button type="button" id="rowId" class="remove-button btn btn-danger" data-url="'. action('PagesController@destroy', ['id' => $row->id]) .'">
                             <div class="close">&#120;</div>
                             </button></td>
                         </tr>
