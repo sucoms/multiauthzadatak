@@ -11,10 +11,11 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="rem-mod btn btn-secondary" data-dismiss="modal">Zatvori</button>
-                    {{ Form::open(['method' => 'POST']) }}
+                    <button type="button" class="bck-mod test btn btn-danger" data-dismiss="modal">Obriši korisnika</button>
+                    {{-- Form::open(['method' => 'POST']) }}
                     {{ Form::submit('Obrišite račun', ['class' => 'bck-mod btn btn-danger']) }}    
                     {{ Form::hidden('_method', 'DELETE') }}
-                    {{ Form::close() }}
+                    {{ Form::close() --}}
                 </div>
             </div>
         </div>
@@ -73,24 +74,28 @@
         });
 
         $('#users').on('click', '.remove-button', function(){
-            var url = $(this).data('url');
-            $("#deleteModal form").attr('action', url);
+            var id = $(this).data('id');
+            $(".test").attr('data-id', id);
             $("#deleteModal").modal("show");
         });
         $(document).on('click', '.bck-mod', function(){
-        var id = $(this).data('id');
+            var id = $(this).data('id');
             $.ajax({
-                url:"{{route('live_search.destroy')}}",
-                method:"POST",
+                //url:"{{ route('live_search.destroy') }}",
+                url:"/live_search/destroy",
+                method:"get",
                 data:{id:id},
+                dataType:'json',
                 success:function(data)
                 {
-                    alert(data);
-                    $('#users').DataTable().ajax.reload();
+                    $('tbody').html(data.table_data);
+                    $('#total_records').text(data.total_data);
+                },
+                error: function(data)
+                {
+                    console.log(data);
                 }
             })
-    });
-    });
-    
-    
+        });
+    });  
 </script>

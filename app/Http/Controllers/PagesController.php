@@ -120,37 +120,51 @@ class PagesController extends Controller
         );
         return redirect()->back();
     }
-    public function destroy(Request $request, $id){
-        // return $id;
-        // $korisnici = User::all();
-        // $user = Auth::user();
-        $user = User::findOrFail($id);
-        // return $user;
-        if ($user->IsAdmin()){
-            if($user->delete()){
-                $data = array(
-                    'title' => 'Logged in as admin',
-                    'paragraf' => 'Registrirani korisnici:',
-                    'korisnici' => $korisnici,
-                    'modal' => 'Želite li uistinu obrisati korisnika?');
-                return view('pages.admin')->with($data); 
-            }
-        }else{
-            $user->delete(); 
-            $data = array(
-                'title' => 'Dobrodošli,',
-                'title2' => 'da biste nastavili, ulogirajte se!',
+    public function destroy(Request $request){
+        if($request->ajax()){
+            $loged_in_user = User::findOrFail(Auth::user()->id);
+            $user = User::findOrFail($request->get('id'));
+            if ($loged_in_user->IsAdmin()){
+                if($user->delete()){
+                    $data = DB::table('users')->orderBy('id')->get();
+            
+                    $total_row = $data->count();
+                    $output = "";
+                    if($total_row > 0){
+                        foreach($data as $row){
+                            $output .= '
+                                <tr>
+                                    <td>'.$row->surname.'</td>
+                                    <td>'.$row->name.'</td>
+                                    <td>'.$row->phone.'</td>
+                                    <td><button type="button" id="rowId" class="remove-button btn btn-danger" data-id="'. $row->id .'">
+                                    <div class="close">&#120;</div>
+                                    </button></td>
+                                </tr>
+                            ';
+                        }
+                    }else{
+                        $output = '
+                            <tr>
+                                <td align="center" colspan="5">Nema podataka</td>
+                            </tr>
+                        ';
+                    }
+                    $data = array(
+                        'table_data'  => $output,
+                        'total_data'  => $total_row,
+                    );
 
-            );
-            return view('pages.index')->with($data);
+                    return json_encode($data);
+                }
+            }
         }
+        return "Nope";
     }
 
     public function action(Request $request)
     {
-            
         if($request->ajax()){
-            $output = '';
             $query = $request->get('query');
             if($query != ''){
                 $data = DB::table('users')
@@ -164,7 +178,9 @@ class PagesController extends Controller
                     ->orderBy('id')
                     ->get();
             }
+
             $total_row = $data->count();
+            $output = "";
             if($total_row > 0){
                 foreach($data as $row){
                     $output .= '
@@ -172,7 +188,7 @@ class PagesController extends Controller
                             <td>'.$row->surname.'</td>
                             <td>'.$row->name.'</td>
                             <td>'.$row->phone.'</td>
-                            <td><button type="button" id="rowId" class="remove-button btn btn-danger" data-url="'. action('PagesController@destroy', ['id' => $row->id]) .'">
+                            <td><button type="button" id="rowId" class="remove-button btn btn-danger" data-id="'. $row->id .'">
                             <div class="close">&#120;</div>
                             </button></td>
                         </tr>
@@ -192,5 +208,44 @@ class PagesController extends Controller
 
             echo json_encode($data);
         }
+        return "Nope";
     }
+
+    public function generateUserTable($query = '')
+    {
+        // ovo se ne treba ponavljat
+        
+        $total_row = $data->count();
+            $output = "";
+            if($total_row > 0){
+                foreach($data as $row){
+                    $output .= '
+                        <tr>
+                            <td>'.$row->surname.'</td>
+                            <td>'.$row->name.'</td>
+                            <td>'.$row->phone.'</td>
+                            <td><button type="button" id="rowId" class="remove-button btn btn-danger" data-id="'. $row->id .'">
+                            <div class="close">&#120;</div>
+                            </button></td>
+                        </tr>
+                    ';
+                }
+            }else{
+                $output = '
+                    <tr>
+                        <td align="center" colspan="5">Nema podataka</td>
+                    </tr>
+                ';
+            }
+            $data = array(
+                'table_data'  => $output,
+                'total_data'  => $total_row,
+            );
+
+            echo json_encode($data);
+        
+        // dovde
+        return $data;
+    }
+    
 }

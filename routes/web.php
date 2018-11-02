@@ -14,15 +14,19 @@
 Route::get('/', 'PagesController@index');
 
 // mogu pristupiti samo logirani korisnici
-Route::group(['middleware' => ['auth', /*'IsAdmin'*/]], function() {
+Route::group(['middleware' => ['web', 'auth']], function() {
     Route::get('/admin', 'PagesController@admin');
     Route::post('/adminForma', ['as' => 'adminForma', 'uses' => 'PagesController@adminForma']);
     Route::get('/users', 'PagesController@users');
     Route::get('/settings', 'PagesController@settings');
+    Route::post('/settings', 'PagesController@settings');
+    Route::get('/generateUserTable', 'PagesController@generateUserTable');
+    Route::post('/generateUserTable', 'PagesController@generateUserTable');
     Route::get('/live_search/action', 'PagesController@action')->name('live_search.action');
-    Route::post('settings', 'PagesController@settings');
     Route::post('/live_search/action', 'PagesController@action');
-    Route::POST('/live_search/destroy', 'PagesController@destroy')->name('live_search.destroy');
+    Route::get('/live_search/destroy', 'PagesController@destroy')->name('live_search.destroy');
+    Route::get('/live_search/generateUserTable', 'PagesController@generateUserTable')->name('live_search.generateUserTable');
+    Route::post('/live_search/generateUserTable', 'PagesController@generateUserTable');
 });
 // Route::group(['middleware' => ['auth']], function() {
 //     Route::get('/users', 'PagesController@users');
