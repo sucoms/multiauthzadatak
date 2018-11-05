@@ -128,42 +128,17 @@ class PagesController extends Controller
                 if($user->delete()){
                     $data = DB::table('users')->orderBy('id')->get();
             
-                    $total_row = $data->count();
-                    $output = "";
-                    if($total_row > 0){
-                        foreach($data as $row){
-                            $output .= '
-                                <tr>
-                                    <td>'.$row->surname.'</td>
-                                    <td>'.$row->name.'</td>
-                                    <td>'.$row->phone.'</td>
-                                    <td><button type="button" id="rowId" class="remove-button btn btn-danger" data-id="'. $row->id .'">
-                                    <div class="close">&#120;</div>
-                                    </button></td>
-                                </tr>
-                            ';
-                        }
-                    }else{
-                        $output = '
-                            <tr>
-                                <td align="center" colspan="5">Nema podataka</td>
-                            </tr>
-                        ';
-                    }
-                    $data = array(
-                        'table_data'  => $output,
-                        'total_data'  => $total_row,
-                    );
 
-                    return json_encode($data);
+
+                    return json_encode($this->generateUserTable($data));
                 }
             }
         }
-        return "Nope";
     }
 
     public function action(Request $request)
     {
+        
         if($request->ajax()){
             $query = $request->get('query');
             if($query != ''){
@@ -179,73 +154,42 @@ class PagesController extends Controller
                     ->get();
             }
 
-            $total_row = $data->count();
-            $output = "";
-            if($total_row > 0){
-                foreach($data as $row){
-                    $output .= '
-                        <tr>
-                            <td>'.$row->surname.'</td>
-                            <td>'.$row->name.'</td>
-                            <td>'.$row->phone.'</td>
-                            <td><button type="button" id="rowId" class="remove-button btn btn-danger" data-id="'. $row->id .'">
-                            <div class="close">&#120;</div>
-                            </button></td>
-                        </tr>
-                    ';
-                }
-            }else{
-                $output = '
-                    <tr>
-                        <td align="center" colspan="5">Nema podataka</td>
-                    </tr>
-                ';
-            }
-            $data = array(
-                'table_data'  => $output,
-                'total_data'  => $total_row,
-            );
-
-            echo json_encode($data);
+            
+            return json_encode($this->generateUserTable($data));
+            
         }
-        return "Nope";
     }
 
-    public function generateUserTable($query = '')
+    public function generateUserTable($data)
     {
-        // ovo se ne treba ponavljat
-        
         $total_row = $data->count();
-            $output = "";
-            if($total_row > 0){
-                foreach($data as $row){
-                    $output .= '
-                        <tr>
-                            <td>'.$row->surname.'</td>
-                            <td>'.$row->name.'</td>
-                            <td>'.$row->phone.'</td>
-                            <td><button type="button" id="rowId" class="remove-button btn btn-danger" data-id="'. $row->id .'">
-                            <div class="close">&#120;</div>
-                            </button></td>
-                        </tr>
-                    ';
-                }
-            }else{
-                $output = '
+        $output = "";
+        if($total_row > 0){
+            foreach($data as $row){
+                $output .= '
                     <tr>
-                        <td align="center" colspan="5">Nema podataka</td>
+                        <td>'.$row->surname.'</td>
+                        <td>'.$row->name.'</td>
+                        <td>'.$row->phone.'</td>
+                        <td><button type="button" id="rowId" class="remove-button btn btn-danger" data-id="'. $row->id .'">
+                        <div class="close">&#120;</div>
+                        </button></td>
                     </tr>
                 ';
             }
-            $data = array(
-                'table_data'  => $output,
-                'total_data'  => $total_row,
-            );
-
-            echo json_encode($data);
+        }else{
+            $output = '
+                <tr>
+                    <td align="center" colspan="5">Nema podataka</td>
+                </tr>
+            ';
+        }
+        return array(
+            'table_data'  => $output,
+            'total_data'  => $total_row,
+        );
         
-        // dovde
-        return $data;
+
     }
     
 }

@@ -67,6 +67,7 @@
                 }
             })
         }
+        
  
         $(document).on('keyup', '#search', function(){
             var query = $(this).val();
@@ -97,5 +98,7 @@
                 }
             })
         });
-    });  
+    });
+    
+    
 </script>
