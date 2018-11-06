@@ -2,8 +2,6 @@
     <div class="container">
     <h1><?php echo e($title); ?></h1>
     <h2><?php echo e($title2); ?></h2>
-    
-    
     </div>
     <?php $__env->stopSection(); ?>
         

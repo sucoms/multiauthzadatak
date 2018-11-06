@@ -60,5 +60,4 @@
         </div>
         {{ csrf_field() }}
 </div>
-
 {{ Form::close() }}

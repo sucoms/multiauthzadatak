@@ -21,8 +21,6 @@
     <!-- Styles -->
     <link rel="stylesheet" href="<?php echo e(asset('css/app.css')); ?>">
     
-    
-    
 </head>
 <body>
     <div id="app">
@@ -59,8 +57,6 @@
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <?php echo e(Auth::user()->name); ?> <span class="caret"></span>
                                 </a>
-                                
-
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                    
                                     <a class="dropdown-item" href="<?php echo e(url('/users')); ?>">
@@ -68,16 +64,15 @@
 
                                     </a>
                                     
-                                    
                                     <a class="dropdown-item" href="<?php echo e(url('/admin')); ?>">
                                         <?php echo e(__('Admin dashboard')); ?>
 
                                     </a>
+
                                     <a class="dropdown-item" href="<?php echo e(url('/form')); ?>">
                                         <?php echo e(__('Forma')); ?>
 
                                     </a>
-                                    
                                     
                                     <a class="dropdown-item" href="<?php echo e(url('settings')); ?>"
                                     onclick="event.preventDefault();                                                 
@@ -90,13 +85,13 @@
                                     <?php echo e(csrf_field()); ?>
 
                                     </form>
+
                                     <a class="dropdown-item" href="<?php echo e(route('logout')); ?>"
                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                        document.getElementById('logout-form').submit();">
                                         <?php echo e(__('Logout')); ?>
 
                                     </a>
-
                                     <form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" style="display: none;">
                                         <?php echo csrf_field(); ?>
                                     </form>

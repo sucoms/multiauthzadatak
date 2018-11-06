@@ -14,8 +14,7 @@ use DB;
 
 
 class PagesController extends Controller
-{
-    
+{   
     public function index(){
         $korisnici = User::all();
         $user = Auth::User();
@@ -24,13 +23,11 @@ class PagesController extends Controller
             $data = array(
             'title' => 'Logged in as admin',
             'paragraf' => 'Registrirani korisnici:',
-            // 'korisnici' => array((object)$korisnik_1, (object)$korisnik_2, (object)$korisnik_3, (object)$korisnik_4),
             'korisnici' => $korisnici,
             'modal' => 'Želite li uistinu obrisati korisnika?');
             return view('pages.admin')->with($data);
             }
             $data = array(
-                // 'title' => 'Logged in as user N.N',
                 'paragraf' => 'Podatci korisnika:',
                 'podatak' => ['Email: n.n.@test.com', 'Phone: 0123456789'],
                 'korisnici' => $korisnici
@@ -43,36 +40,22 @@ class PagesController extends Controller
             'login' => 'Login',
             'register' => 'Register'
             
-        );
-        
-        
+        );        
         return view('pages.index')->with($data);
     }
     public function admin(){
-        // Zadatak: (riješeno)
-        // $korisnik_1 = ['ime'=>'Pero', 'prezime'=>'Perić', 'tel'=>'0312456798'];
-        // $korisnik_2 = ['ime'=>'Zvonko', 'prezime'=>'Zvonimirović', 'tel'=>'0312456798'];
-        // $korisnik_3 = ['ime'=>'Zdenko', 'prezime'=>'Zdenković', 'tel'=>'0312456798'];
-        // $korisnik_4 = ['ime'=>'Ivica', 'prezime'=>'Ivković', 'tel'=>'0312456798'];
-        // -----------------------------------------------------------
-        // Novi zadatak: iz databaze se povlace podatci
-        $korisnici = User::all(); //možda je bolje User::get(); jer se može mijenjati.
+        $korisnici = User::all(); 
         $data = array(
             'title' => 'Ulogirani ste kao admin.',
             'paragraf' => 'Registrirani korisnici:',
-            // 'korisnici' => array((object)$korisnik_1, (object)$korisnik_2, (object)$korisnik_3, (object)$korisnik_4),
             'korisnici' => $korisnici,
             'modal' => 'Želite li uistinu obrisati korisnika?'
         );
-        // dump($data);
-        // dd($data);
         return view('pages.admin')->with($data);
     }
     public function users(){
-        
         $korisnici = User::all();
         $data = array(
-            // 'title' => 'Logged in as user N.N',
             'paragraf' => 'Podatci korisnika:',
             'podatak' => ['Email: n.n.@test.com', 'Phone: 0123456789'],
             'korisnici' => $korisnici
@@ -90,7 +73,6 @@ class PagesController extends Controller
         $data = array(
             'title' => 'Logged in as admin',
             'paragraf' => 'Registrirani korisnici:',
-            // 'korisnici' => array((object)$korisnik_1, (object)$korisnik_2, (object)$korisnik_3, (object)$korisnik_4),
             'korisnici' => $korisnici,
             'title' => 'Form',
             'modal' => 'Želite li uistinu obrisati korisnika?'
@@ -98,9 +80,7 @@ class PagesController extends Controller
         $user = User::create($request->all());
         return back()->with($data);
     }
-    public function save_data(StoreBlogPost $request){  
-        // dd($request->User);
-        
+    public function save_data(StoreBlogPost $request){
         $user = User::create($request->all());
         return redirect()->route('login');
     }
@@ -120,6 +100,7 @@ class PagesController extends Controller
         );
         return redirect()->back();
     }
+
     public function destroy(Request $request){
         if($request->ajax()){
             $loged_in_user = User::findOrFail(Auth::user()->id);
@@ -127,18 +108,23 @@ class PagesController extends Controller
             if ($loged_in_user->IsAdmin()){
                 if($user->delete()){
                     $data = DB::table('users')->orderBy('id')->get();
-            
-
-
                     return json_encode($this->generateUserTable($data));
                 }
             }
         }
-    }
-
-    public function action(Request $request)
-    {
         
+        $user = Auth::user();
+        Auth::logout();
+        if ($user->delete()) {
+            $data = array(
+                'title' => 'Dobrodošli,',
+                'title2' => 'da biste nastavili, ulogirajte se!',
+            );
+        return view('pages.index')->with($data);
+        }
+    }
+    
+    public function action(Request $request){        
         if($request->ajax()){
             $query = $request->get('query');
             if($query != ''){
@@ -152,16 +138,12 @@ class PagesController extends Controller
                 $data = DB::table('users')
                     ->orderBy('id')
                     ->get();
-            }
-
-            
-            return json_encode($this->generateUserTable($data));
-            
+            }            
+            return json_encode($this->generateUserTable($data));           
         }
     }
 
-    public function generateUserTable($data)
-    {
+    public function generateUserTable($data){
         $total_row = $data->count();
         $output = "";
         if($total_row > 0){
@@ -188,8 +170,5 @@ class PagesController extends Controller
             'table_data'  => $output,
             'total_data'  => $total_row,
         );
-        
-
     }
-    
 }

@@ -21,8 +21,7 @@ class StoreBlogPost extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
+    public function rules(){
         return [
             'name' => 'required',
             'surname' => 'required',
@@ -33,9 +32,7 @@ class StoreBlogPost extends FormRequest
         ];
     }
 
-    //uzeto iz FormRequest.php
-    public function messages()
-    {
+    public function messages(){
         return [
             'name.required' => 'Molimo unesite svoje ime.',
             'surname.required' => 'Molimo unesite svoje prezime.',

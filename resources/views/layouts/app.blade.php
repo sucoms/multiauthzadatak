@@ -20,8 +20,6 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
-    {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> --}}
-    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> --}}
     
 </head>
 <body>
@@ -58,22 +56,19 @@
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
-                                
-
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                    
                                     <a class="dropdown-item" href="{{ url('/users') }}">
                                         {{ __('Users dashboard') }}
                                     </a>
                                     
-                                    
                                     <a class="dropdown-item" href="{{ url('/admin') }}">
                                         {{ __('Admin dashboard') }}
                                     </a>
+
                                     <a class="dropdown-item" href="{{ url('/form') }}">
                                         {{ __('Forma') }}
                                     </a>
-                                    
                                     
                                     <a class="dropdown-item" href="{{ url('settings') }}"
                                     onclick="event.preventDefault();                                                 
@@ -84,12 +79,12 @@
                                     style="display: none;">
                                     {{ csrf_field() }}
                                     </form>
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                        document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>

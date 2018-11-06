@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+
     <div class="container">
     <h1>{{$title}}</h1>
     {!! Form::open(['action' => ['PagesController@update', Auth::user()], 'method' => 'POST' ]) !!}
@@ -44,7 +45,6 @@
         <div class="form-group">
             {{ Form::submit('Potvrdite', ['class' => 'btn btn-primary']) }}
         </div>
-        
         {{ csrf_field() }}
     {!! Form::close() !!}
     
@@ -55,5 +55,4 @@
         {{Form::hidden('_method', 'DELETE')}}
     {!!Form::close()!!}
     </div>
-    @endsection
-        
+@endsection
