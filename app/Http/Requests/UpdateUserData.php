@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-
 class UpdateUserData extends FormRequest
 {
     /**
@@ -22,7 +21,8 @@ class UpdateUserData extends FormRequest
      *
      * @return array
      */
-    public function rules(){
+    public function rules()
+    {
         return [
             'name' => 'nullable',
             'surname' => 'nullable',
@@ -30,7 +30,14 @@ class UpdateUserData extends FormRequest
             'phone' => 'nullable|numeric',
         ];
     }
-    public function messages(){
+
+    /**
+     * Get the messages that apply to the request.
+     *
+     * @return array
+     */
+    public function messages()
+    {
         return [
             'email.email' => 'Molimo unesite svoju email adresu.',
             'phone.numeric' => 'Telefon može sadržavati samo brojeve.',

@@ -14,7 +14,7 @@
 Route::get('/', 'PagesController@index');
 
 // mogu pristupiti samo logirani korisnici
-Route::group(['middleware' => ['web', 'auth']], function() {
+Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/admin', 'PagesController@admin');
     Route::post('/adminForma', 'PagesController@adminForma')->name('adminForma');
     Route::get('/users', 'PagesController@users');

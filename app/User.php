@@ -6,7 +6,6 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-
 class User extends Authenticatable
 {
     use Notifiable;
@@ -26,15 +25,23 @@ class User extends Authenticatable
      * @var array
      */
     //hash password
-    public function setPasswordAttribute($value){
+    public function setPasswordAttribute($value)
+    {
         $this->attributes['password'] = bcrypt($value);
     }
 
+    /**
+     * The attributes that are hidden.
+     *
+     * @var array
+     */
     protected $hidden = [
         'password', 'remember_token',
     ];
-    public function IsAdmin(){
-        if($this->admin){
+
+    public function IsAdmin()
+    {
+        if ($this->admin) {
             return true;
         }
         return false;

@@ -12,20 +12,28 @@ use Flash;
 use Redirect;
 use DB;
 
-
 class PagesController extends Controller
-{   
-    public function index(){
+{
+            
+    /**
+     * Index metoda otvaranja početne stranice admina/korisnika
+     *
+     * Otvara stranicu ovisno o tome tko je ulogiran
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory view
+     */
+    public function index()
+    {
         $korisnici = User::all();
         $user = Auth::User();
-        if($user){
-        if ($user->IsAdmin()){
-            $data = array(
-            'title' => 'Logged in as admin',
-            'paragraf' => 'Registrirani korisnici:',
-            'korisnici' => $korisnici,
-            'modal' => 'Želite li uistinu obrisati korisnika?');
-            return view('pages.admin')->with($data);
+        if ($user) {
+            if ($user->IsAdmin()) {
+                $data = array(
+                'title' => 'Logged in as admin',
+                'paragraf' => 'Registrirani korisnici:',
+                'korisnici' => $korisnici,
+                'modal' => 'Želite li uistinu obrisati korisnika?');
+                    return view('pages.admin')->with($data);
             }
             $data = array(
                 'paragraf' => 'Podatci korisnika:',
@@ -40,11 +48,18 @@ class PagesController extends Controller
             'login' => 'Login',
             'register' => 'Register'
             
-        );        
+        );
         return view('pages.index')->with($data);
     }
-    public function admin(){
-        $korisnici = User::all(); 
+            
+    /**
+     * Admin metoda otvaranja početne stranice admina
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory view
+     */
+    public function admin()
+    {
+        $korisnici = User::all();
         $data = array(
             'title' => 'Ulogirani ste kao admin.',
             'paragraf' => 'Registrirani korisnici:',
@@ -53,7 +68,14 @@ class PagesController extends Controller
         );
         return view('pages.admin')->with($data);
     }
-    public function users(){
+        
+    /**
+     * Users metoda otvaranja početne stranice korisnika
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory view
+     */
+    public function users()
+    {
         $korisnici = User::all();
         $data = array(
             'paragraf' => 'Podatci korisnika:',
@@ -62,13 +84,30 @@ class PagesController extends Controller
         );
         return view('pages.users')->with($data);
     }
-    public function form(){
+    
+    /**
+     * Form metoda registriranja korisnika
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory view
+     */
+    public function form()
+    {
         $data = array(
             'title' => 'Form',
         );
         return view('pages.form')->with($data);
     }
-    public function adminForma(StoreBlogPost $request){
+        
+    /**
+     * adminForma metoda kreiranja korisnika
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreBlogPost
+     *
+     * @return \Illuminate\Http\RedirectResponse back
+     */
+    public function adminForma(StoreBlogPost $request)
+    {
         $korisnici = User::all();
         $data = array(
             'title' => 'Logged in as admin',
@@ -80,11 +119,28 @@ class PagesController extends Controller
         $user = User::create($request->all());
         return back()->with($data);
     }
-    public function save_data(StoreBlogPost $request){
+    
+    /**
+     * Save_data metoda spremanja korisnika u bazu
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreBlogPost
+     *
+     * @return \Illuminate\Http\RedirectResponse route(login)
+     */
+    public function save_data(StoreBlogPost $request)
+    {
         $user = User::create($request->all());
         return redirect()->route('login');
     }
-    public function settings(){
+
+    /**
+     * Settings metoda promjena postavki korisnika
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory view
+     */
+    public function settings()
+    {
         $user = Auth::user();
         $data = array(
             'title' => 'Settings',
@@ -92,7 +148,17 @@ class PagesController extends Controller
         );
         return view('pages.settings')->with($data);
     }
-    public function update(UpdateUserData $request){
+
+    /**
+     * Update metoda ažuriranja podataka korisnika
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\UpdateUserData
+     *
+     * @return \Illuminate\Http\RedirectResponse back
+     */
+    public function update(UpdateUserData $request)
+    {
         $user = Auth::user();
         $user->update($request->all());
         $data = array(
@@ -101,18 +167,26 @@ class PagesController extends Controller
         return redirect()->back();
     }
 
-    public function destroy(Request $request){
-        if($request->ajax()){
+    /**
+     * Destroy metoda brisanja korisnika
+     *
+     * @param  \Illuminate\Http\Request  $request
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory view
+     */
+    public function destroy(Request $request)
+    {
+        if ($request->ajax()) {
             $loged_in_user = User::findOrFail(Auth::user()->id);
             $user = User::findOrFail($request->get('id'));
-            if ($loged_in_user->IsAdmin()){
-                if($user->delete()){
+            if ($loged_in_user->IsAdmin()) {
+                if ($user->delete()) {
                     $data = DB::table('users')->orderBy('id')->get();
                     return json_encode($this->generateUserTable($data));
                 }
             }
         }
-        
+
         $user = Auth::user();
         Auth::logout();
         if ($user->delete()) {
@@ -120,34 +194,50 @@ class PagesController extends Controller
                 'title' => 'Dobrodošli,',
                 'title2' => 'da biste nastavili, ulogirajte se!',
             );
-        return view('pages.index')->with($data);
+            return view('pages.index')->with($data);
         }
     }
     
-    public function action(Request $request){        
-        if($request->ajax()){
+    /**
+     * Action metoda očitavanja korisnika na admin stranici
+     *
+     * @param  \Illuminate\Http\Request $request
+     *
+     * @return generateUserTable $data
+     */
+    public function action(Request $request)
+    {
+        if ($request->ajax()) {
             $query = $request->get('query');
-            if($query != ''){
+            if ($query != '') {
                 $data = DB::table('users')
                     ->where('surname', 'like', '%'.$query.'%')
                     ->orWhere('name', 'like', '%'.$query.'%')
                     ->orWhere('phone', 'like', '%'.$query.'%')
                     ->orderBy('id')
                     ->get();
-            }else {
+            } else {
                 $data = DB::table('users')
                     ->orderBy('id')
                     ->get();
-            }            
-            return json_encode($this->generateUserTable($data));           
+            }
+            return json_encode($this->generateUserTable($data));
         }
     }
-
-    public function generateUserTable($data){
+    
+    /**
+     * GenerateUserTable metoda očitavanja korisnika u tablici na admin stranici
+     *
+     * @param  $data
+     *
+     * @return array
+     */
+    public function generateUserTable($data)
+    {
         $total_row = $data->count();
         $output = "";
-        if($total_row > 0){
-            foreach($data as $row){
+        if ($total_row > 0) {
+            foreach ($data as $row) {
                 $output .= '
                     <tr>
                         <td>'.$row->surname.'</td>
@@ -159,7 +249,7 @@ class PagesController extends Controller
                     </tr>
                 ';
             }
-        }else{
+        } else {
             $output = '
                 <tr>
                     <td align="center" colspan="5">Nema podataka</td>
