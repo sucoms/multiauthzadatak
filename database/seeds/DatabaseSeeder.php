@@ -1,7 +1,7 @@
 <?php
 
 use App\User;
-use App\Admin;
+use App\Role;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UsersTableSeeder::class,
+            RoleTableSeeder::class,
         ]);
     }
 }
