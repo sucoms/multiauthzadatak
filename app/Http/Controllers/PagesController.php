@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Role;
 use App\Http\Requests\StoreBlogPost;
 use App\Http\Requests\UpdateUserData;
 use Hash;
@@ -24,6 +25,9 @@ class PagesController extends Controller
      */
     public function index()
     {
+        // $user = User::find(1);
+        // $user->roles()->detach(2);
+        // dd($user->roles);
         $korisnici = User::all();
         $user = Auth::User();
         if ($user) {
