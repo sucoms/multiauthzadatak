@@ -15,6 +15,10 @@ class Role extends Model
     * @var array
     */
     protected $fillable = [
-        'name', 'role',
+        'role',
     ];
+    public function users()
+    {
+        return $this->belongsToMany('App\User');
+    }
 }

@@ -26,7 +26,8 @@ class PagesController extends Controller
     public function index()
     {
         // $user = User::find(1);
-        // $user->roles()->detach(2);
+        // $role = Role::find(1);
+        // $user->roles()->detach($role);
         // dd($user->roles);
         $korisnici = User::all();
         $user = Auth::User();
