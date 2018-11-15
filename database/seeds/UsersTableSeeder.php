@@ -16,6 +16,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $r = Role::find(1);
+        $r2 = Role::find(2);
         $user = User::create([
             'name' => 'Pero',
             'surname' => 'Perić',
@@ -25,7 +26,6 @@ class UsersTableSeeder extends Seeder
         ]);
         $user->roles()->attach($r);
 
-        $r2 = Role::find(2);
         $user2 = User::create([
             'name' => 'Zvonko',
             'surname' => 'Zvonimirović',
@@ -35,7 +35,6 @@ class UsersTableSeeder extends Seeder
         ]);
         $user2->roles()->attach($r2);
 
-        $r3 = Role::find(2);
         $user3 = User::create([
             'name' => 'Zdenko',
             'surname' => 'Zdenković',
@@ -43,9 +42,8 @@ class UsersTableSeeder extends Seeder
             'phone' => '03123456798',
             'password' => '123456789',
         ]);
-        $user3->roles()->attach($r3);
+        $user3->roles()->attach($r2);
 
-        $r4 = Role::find(2);
         $user4 = User::create([
             'name' => 'Ivica',
             'surname' => 'Ivković',
@@ -53,6 +51,6 @@ class UsersTableSeeder extends Seeder
             'phone' => '03123456798',
             'password' => '123456789',
         ]);
-        $user4->roles()->attach($r4);
+        $user4->roles()->attach($r2);
     }
 }

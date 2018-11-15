@@ -215,15 +215,13 @@ class PagesController extends Controller
         if ($request->ajax()) {
             $query = $request->get('query');
             if ($query != '') {
-                $data = DB::table('users')
-                    ->where('surname', 'like', '%'.$query.'%')
+                $data = User::where('surname', 'like', '%'.$query.'%')
                     ->orWhere('name', 'like', '%'.$query.'%')
                     ->orWhere('phone', 'like', '%'.$query.'%')
                     ->orderBy('id')
                     ->get();
             } else {
-                $data = DB::table('users')
-                    ->orderBy('id')
+                $data = User::orderBy('id')
                     ->get();
             }
             return json_encode($this->generateUserTable($data));
@@ -243,12 +241,26 @@ class PagesController extends Controller
         $output = "";
         if ($total_row > 0) {
             foreach ($data as $row) {
+                $roleNames = '';
+                $userRoles = $row->roles()->pluck('id')->toArray();
+                // var_dump($userRoles);
+                $checked = '';
+                foreach (Role::all() as $roles1) {
+                    if (in_array($roles1->id, $userRoles)) {
+                        $checked = 'checked="checked"';
+                    }
+                    $roleNames .= $roles1->role != null ? $roles1->role.' '.'<input type="checkbox" '.$checked.' name="role" value="'.$roles1->id.'" class="checkbox" id="checkboxId">'.' ' : '';
+                }
                 $output .= '
                     <tr>
                         <td>'.$row->surname.'</td>
                         <td>'.$row->name.'</td>
                         <td>'.$row->phone.'</td>
-                        <td><button type="button" id="rowId" class="remove-button btn btn-danger" data-id="'. $row->id .'">
+                        <td>'.$roleNames.'</td>
+                        <td><button type="button" id="potvrdi" class="potvrdi-button btn btn-primary" data-id="'.$row->id.'">
+                        <div class="potvrdi">Potvrdi</div>
+                        </button></td>
+                        <td><button type="button" id="rowId" class="remove-button btn btn-danger" data-id="'.$row->id.'">
                         <div class="close">&#120;</div>
                         </button></td>
                     </tr>

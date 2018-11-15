@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'surname', 'email', 'phone', 'password','role',
+        'name', 'surname', 'email', 'phone', 'password',
     ];
 
     /**
@@ -39,16 +39,21 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function IsAdmin()
-    {
-        if ($this->role == 1) {
-            return true;
-        }
-        return false;
-    }
-    
     public function roles()
     {
         return $this->belongsToMany('App\Role');
+    }
+    /**
+     * IsAdmin metoda provjere admina
+     *
+     * @return boolean
+     */
+    public function IsAdmin()
+    {
+        $IsAdmin = false;
+        $IsAdmin = !$this->roles->filter(function ($item) {
+            return $item->role == 'Admin';
+        })->isEmpty();
+        return $IsAdmin;
     }
 }

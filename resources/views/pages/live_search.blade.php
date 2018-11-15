@@ -31,6 +31,8 @@
                             <th>Prezime</th>
                             <th>Ime</th>
                             <th>Telefon</th>
+                            <th>Rola</th>
+                            <th></th>
                             <th></th>
                         </tr>
                     </thead>
