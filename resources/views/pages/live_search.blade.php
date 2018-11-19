@@ -62,11 +62,29 @@
                 }
             })
         }
-        
+
+        $(document).on('click', '.potvrdi-button', function(e){
+            var value = $(this).find('input[name="role"]').val();
+            $.ajax({
+                url: "{{ route('live_search.action') }}",
+                method: "GET",
+                data: {
+                    value: value
+                },
+                dataType: 'json',
+                success: function(data) {
+                    $('tbody').html(data.table_data);
+                    $('#total_records').text(data.total_data);
+                }
+            })
+        })
+
         $(document).on('keyup', '#search', function(){
             var query = $(this).val();
             fetch_user_data(query);
         });
+        
+        
 
         $('#users').on('click', '.remove-button', function(){
             var id = $(this).data('id');

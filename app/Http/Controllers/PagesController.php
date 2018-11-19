@@ -122,6 +122,8 @@ class PagesController extends Controller
             'modal' => 'Želite li uistinu obrisati korisnika?'
         );
         $user = User::create($request->all());
+        $r = Role::find(2);
+        $user->roles()->attach($r);
         return back()->with($data);
     }
     
@@ -136,6 +138,8 @@ class PagesController extends Controller
     public function save_data(StoreBlogPost $request)
     {
         $user = User::create($request->all());
+        $r = Role::find(2);
+        $user->roles()->attach($r);
         return redirect()->route('login');
     }
 
@@ -186,7 +190,7 @@ class PagesController extends Controller
             $user = User::findOrFail($request->get('id'));
             if ($loged_in_user->IsAdmin()) {
                 if ($user->delete()) {
-                    $data = DB::table('users')->orderBy('id')->get();
+                    $data = User::all();
                     return json_encode($this->generateUserTable($data));
                 }
             }
@@ -226,6 +230,16 @@ class PagesController extends Controller
             }
             return json_encode($this->generateUserTable($data));
         }
+        if ($request->ajax()) {
+            $loged_in_user = User::findOrFail(Auth::user()->id);
+            $user = User::findOrFail($request->get('id'));
+            if ($loged_in_user->IsAdmin()) {
+                if ($user->update()) {
+                    $data = User::all();
+                    return json_encode($this->generateUserTable($data));
+                }
+            }
+        }
     }
     
     /**
@@ -243,7 +257,6 @@ class PagesController extends Controller
             foreach ($data as $row) {
                 $roleNames = '';
                 $userRoles = $row->roles()->pluck('id')->toArray();
-                // var_dump($userRoles);
                 $checked = '';
                 foreach (Role::all() as $roles1) {
                     if (in_array($roles1->id, $userRoles)) {
