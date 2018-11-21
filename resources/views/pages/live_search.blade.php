@@ -41,6 +41,9 @@
                 </tbody>
                 </table>
             </div>
+            {{-- <div class="form-group">
+                <input type="text" name="text" data-xyz="100" id="test" value="1000"/> 
+            </div> --}}
         </div>    
     </div>
 </div>
@@ -63,16 +66,31 @@
             })
         }
 
-        $(document).on('click', '.potvrdi-button', function(e){
-            var value = $(this).find('input[name="role"]').val();
+        $(document).on('click', '.potvrdi-button', function(){
+            var id = $(this).data('id');
+            var admin_role = $(this).parent().parent().find('td:nth-child(4) .checkbox1:checkbox:checked').length;
+            console.log(admin_role);
+            var korisnik_role = $(this).parent().parent().find('td:nth-child(4) .checkbox2:checkbox:checked').length;
+            console.log(korisnik_role);
+            // var roleRow = 0;
+            // $('#users tbody tr:nth-child(roleRow) td:nth-child(4)').on(function(){
+            //     for (i = 1; i<roleRow; i++){
+            //         roleRow[i];
+            //     };
+            // });
             $.ajax({
-                url: "{{ route('live_search.action') }}",
-                method: "GET",
+                url: "{{ route('live_search.postUserRole') }}",
+                method: "post",
                 data: {
-                    value: value
-                },
+                    id:id,
+                    admin_role: admin_role,
+                    korisnik_role: korisnik_role,
+                    _token:'{{ csrf_token() }}'
+                    },
                 dataType: 'json',
                 success: function(data) {
+                    $('.checkbox1').prop('checked', false);
+                    $('.checkbox2').prop('checked', false);
                     $('tbody').html(data.table_data);
                     $('#total_records').text(data.total_data);
                 }
@@ -84,8 +102,6 @@
             fetch_user_data(query);
         });
         
-        
-
         $('#users').on('click', '.remove-button', function(){
             var id = $(this).data('id');
             $(".test").attr('data-id', id);

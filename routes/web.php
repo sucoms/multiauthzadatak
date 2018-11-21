@@ -24,6 +24,8 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::post('/generateUserTable', 'PagesController@generateUserTable');
     Route::get('/live_search/action', 'PagesController@action')->name('live_search.action');
     Route::post('/live_search/action', 'PagesController@action');
+    Route::get('/live_search/postUserRole', 'PagesController@postUserRole')->name('live_search.postUserRole');
+    Route::post('/live_search/postUserRole', 'PagesController@postUserRole');
     Route::get('/live_search/destroy', 'PagesController@destroy')->name('live_search.destroy');
     Route::post('/live_search/generateUserTable', 'PagesController@generateUserTable');
     Route::get('/live_search/generateUserTable', 'PagesController@generateUserTable')->name('live_search.generateUserTable');

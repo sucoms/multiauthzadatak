@@ -230,15 +230,29 @@ class PagesController extends Controller
             }
             return json_encode($this->generateUserTable($data));
         }
+    }
+
+    public function postUserRole(Request $request)
+    {
         if ($request->ajax()) {
             $loged_in_user = User::findOrFail(Auth::user()->id);
             $user = User::findOrFail($request->get('id'));
+            $r1 = Role::find(1);
+            $r2 = Role::find(2);
             if ($loged_in_user->IsAdmin()) {
-                if ($user->update()) {
-                    $data = User::all();
-                    return json_encode($this->generateUserTable($data));
+                if ($request->get('admin_role')==1) {
+                    $user->roles()->attach($r1);
+                } else {
+                    $user->roles()->detach($r1);
+                }
+                if ($request->get('korisnik_role')==1) {
+                    $user->roles()->attach($r2);
+                } else {
+                    $user->roles()->detach($r2);
                 }
             }
+            $data = User::all();
+            return json_encode($this->generateUserTable($data));
         }
     }
     
@@ -251,19 +265,24 @@ class PagesController extends Controller
      */
     public function generateUserTable($data)
     {
+        // return User::find(5)->roles;
         $total_row = $data->count();
         $output = "";
         if ($total_row > 0) {
             foreach ($data as $row) {
                 $roleNames = '';
                 $userRoles = $row->roles()->pluck('id')->toArray();
-                $checked = '';
                 foreach (Role::all() as $roles1) {
-                    if (in_array($roles1->id, $userRoles)) {
+                    $checked = '';
+                // var_dump($userRoles);
+                // var_dump($roles1->id);
+                        // var_dump($roles1);
+                    if (in_array($roles1->id, $userRoles, true)) {
                         $checked = 'checked="checked"';
                     }
-                    $roleNames .= $roles1->role != null ? $roles1->role.' '.'<input type="checkbox" '.$checked.' name="role" value="'.$roles1->id.'" class="checkbox" id="checkboxId">'.' ' : '';
+                    $roleNames .= $roles1->role != null ? $roles1->role.' '.'<input type="checkbox" '.$checked.' name="role" value="'.$roles1->id.'" class="checkbox'.$roles1->id.'" id="'.$roles1->id.'">'.' ' : '';
                 }
+                        
                 $output .= '
                     <tr>
                         <td>'.$row->surname.'</td>
