@@ -25,25 +25,28 @@
             </div>
             <div class="table-responsive">
                 <h3 align="center">Broj korisnika: <span id="total_records"></span></h3>
-                <table id="users" class="table table-striped table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Prezime</th>
-                            <th>Ime</th>
-                            <th>Telefon</th>
-                            <th>Rola</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                <tbody>
-
-                </tbody>
-                </table>
+                    <table id="users" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Prezime</th>
+                                <th>Ime</th>
+                                <th>Telefon</th>
+                                <th>Rola</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
+                    <button type="submit" id="potvrdi" class="potvrdi-button btn btn-primary">
+                        <div class="potvrdi">Potvrdi</div>
+                    </button>
+                    <button id="ispisi" class="ispisi-button btn btn-primary">
+                        <div class="ispisi">Ispiši</div>
+                    </button>
             </div>
-            {{-- <div class="form-group">
-                <input type="text" name="text" data-xyz="100" id="test" value="1000"/> 
-            </div> --}}
         </div>    
     </div>
 </div>
@@ -72,12 +75,6 @@
             console.log(admin_role);
             var korisnik_role = $(this).parent().parent().find('td:nth-child(4) .checkbox2:checkbox:checked').length;
             console.log(korisnik_role);
-            // var roleRow = 0;
-            // $('#users tbody tr:nth-child(roleRow) td:nth-child(4)').on(function(){
-            //     for (i = 1; i<roleRow; i++){
-            //         roleRow[i];
-            //     };
-            // });
             $.ajax({
                 url: "{{ route('live_search.postUserRole') }}",
                 method: "post",

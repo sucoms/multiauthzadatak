@@ -235,6 +235,7 @@ class PagesController extends Controller
     public function postUserRole(Request $request)
     {
         if ($request->ajax()) {
+            $data = User::all();
             $loged_in_user = User::findOrFail(Auth::user()->id);
             $user = User::findOrFail($request->get('id'));
             $r1 = Role::find(1);
@@ -251,7 +252,6 @@ class PagesController extends Controller
                     $user->roles()->detach($r2);
                 }
             }
-            $data = User::all();
             return json_encode($this->generateUserTable($data));
         }
     }
@@ -265,7 +265,7 @@ class PagesController extends Controller
      */
     public function generateUserTable($data)
     {
-        // return User::find(5)->roles;
+        // return User::find(2)->roles;
         $total_row = $data->count();
         $output = "";
         if ($total_row > 0) {
@@ -274,28 +274,24 @@ class PagesController extends Controller
                 $userRoles = $row->roles()->pluck('id')->toArray();
                 foreach (Role::all() as $roles1) {
                     $checked = '';
-                // var_dump($userRoles);
-                // var_dump($roles1->id);
-                        // var_dump($roles1);
                     if (in_array($roles1->id, $userRoles, true)) {
                         $checked = 'checked="checked"';
                     }
-                    $roleNames .= $roles1->role != null ? $roles1->role.' '.'<input type="checkbox" '.$checked.' name="role" value="'.$roles1->id.'" class="checkbox'.$roles1->id.'" id="'.$roles1->id.'">'.' ' : '';
+                    $roleNames .= $roles1->role != null ? $roles1->role.' '.'<input type="checkbox" '.$checked.' name="role['.$roles1->id.'][roleId]" value="'.$roles1->id.'" class="checkbox'.$roles1->id.'" id="'.$roles1->id.'">'.' ' : '';
                 }
-                        
                 $output .= '
-                    <tr>
-                        <td>'.$row->surname.'</td>
-                        <td>'.$row->name.'</td>
-                        <td>'.$row->phone.'</td>
-                        <td>'.$roleNames.'</td>
-                        <td><button type="button" id="potvrdi" class="potvrdi-button btn btn-primary" data-id="'.$row->id.'">
-                        <div class="potvrdi">Potvrdi</div>
-                        </button></td>
-                        <td><button type="button" id="rowId" class="remove-button btn btn-danger" data-id="'.$row->id.'">
-                        <div class="close">&#120;</div>
-                        </button></td>
-                    </tr>
+                        <tr input type="hidden" name="user['.$row->id.'][id]" value="'.$row->id.'">
+                            <td>'.$row->surname.'</td>
+                            <td>'.$row->name.'</td>
+                            <td>'.$row->phone.'</td>
+                            <td>'.$roleNames.'</td>
+                            <td><button type="button" id="potvrdi" class="potvrdi-button btn btn-primary" data-id="'.$row->id.'">
+                            <div class="potvrdi">Potvrdi</div>
+                            </button></td>
+                            <td><button type="button" id="rowId" class="remove-button btn btn-danger" data-id="'.$row->id.'">
+                            <div class="close">&#120;</div>
+                            </button></td>
+                        </tr>
                 ';
             }
         } else {
